@@ -21,9 +21,9 @@ export default function FinalCTA() {
     <section
       ref={root}
       id="vaga"
-      className="relative flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-rx-navy-950 px-5 py-[16vh] md:px-10"
+      className="relative flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden px-5 py-[10vh] md:px-10"
     >
-      <Atmosphere grid />
+      <Atmosphere tone="final" grid vignette={0.85} />
 
       <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
         <p data-fc-el="" data-anim="hidden" className="rx-eyebrow text-rx-cyan-500">
@@ -61,7 +61,7 @@ export default function FinalCTA() {
         <div
           data-fc-el=""
           data-anim="hidden"
-          className="mt-24 max-w-[46ch] border-t border-white/[0.07] pt-10"
+          className="mt-16 max-w-[46ch] border-t border-white/[0.07] pt-8"
         >
           <p className="rx-body mx-auto text-rx-silver/70">
             Você pode passar mais um ano tentando consertar o que não entende. Ou pode passar um
@@ -72,7 +72,7 @@ export default function FinalCTA() {
           </p>
         </div>
 
-        <p data-fc-el="" data-anim="hidden" className="rx-eyebrow mt-24 text-rx-silver/35">
+        <p data-fc-el="" data-anim="hidden" className="rx-eyebrow mt-16 text-rx-silver/35">
           {eventData.speaker}
         </p>
       </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import Atmosphere from '@/components/art/Atmosphere'
+import Gear from '@/components/art/Gear'
 import Rope from '@/components/art/Rope'
 import Wordmark from '@/components/ui/Wordmark'
 import { MQ, useSection } from '@/components/motion/useSection'
@@ -22,6 +23,17 @@ export default function Product() {
       reveal('[data-pd-body] > p', { trigger: root, y: 24, stagger: 0.12, start: 'top 52%' })
 
       gsap.fromTo(
+        '[data-pd-bg]',
+        { rotate: -16, y: 40 },
+        {
+          rotate: 16,
+          y: -40,
+          ease: 'none',
+          scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: 1.4 },
+        },
+      )
+
+      gsap.fromTo(
         '[data-rope-path]',
         { strokeDashoffset: 1 },
         {
@@ -36,9 +48,17 @@ export default function Product() {
   return (
     <section
       ref={root}
-      className="relative w-full overflow-hidden bg-rx-navy-950 py-[16vh] md:py-[20vh]"
+      className="relative w-full overflow-hidden py-[11vh] md:py-[14vh]"
     >
-      <Atmosphere />
+      <Atmosphere tone="product" vignette={0.6} />
+
+      {/* mecanismo enorme, no limite do visível — só profundidade, sem competir */}
+      <Gear
+        variant="ghost"
+        data-pd-bg=""
+        className="absolute left-1/2 top-[30%] w-[150vw] max-w-[1500px] -translate-x-1/2 opacity-[0.16] blur-[6px]
+          md:w-[86vw]"
+      />
       <Rope className="absolute left-0 top-[6%] h-[18vh] w-[120%] opacity-45" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">

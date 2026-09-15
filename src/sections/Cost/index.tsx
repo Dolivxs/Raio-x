@@ -44,9 +44,9 @@ export default function Cost() {
     // A seção do custo respira: muito espaço negativo, poucos elementos.
     <section
       ref={root}
-      className="relative w-full overflow-hidden bg-rx-navy-950 py-[24vh] md:py-[32vh]"
+      className="relative w-full overflow-hidden py-[13vh] md:py-[16vh]"
     >
-      <Atmosphere />
+      <Atmosphere tone="cost" vignette={1.2} />
       <Gear
         variant="ghost"
         data-ct-gear=""
@@ -66,12 +66,12 @@ export default function Cost() {
           </h2>
         </div>
 
-        <p data-ct-lead="" data-anim="hidden" className="rx-body mt-16 text-white md:mt-24">
+        <p data-ct-lead="" data-anim="hidden" className="rx-body mt-12 text-white md:mt-16">
           Um mês a mais sem diagnóstico é um mês a mais sangrando resultado em silêncio.
         </p>
 
-        <p className="rx-eyebrow mt-28 text-rx-silver/45 md:mt-40">FAZ A CONTA</p>
-        <ul className="mt-10 space-y-14 md:mt-14 md:space-y-20">
+        <p className="rx-eyebrow mt-14 text-rx-silver/45 md:mt-20">FAZ A CONTA</p>
+        <ul className="mt-8 space-y-8 md:mt-10 md:space-y-11">
           {CONTAS.map((c) => (
             <li key={c} data-ct-item="" data-anim="hidden" className="flex gap-5 md:gap-8">
               <span className="mt-3 h-px w-8 shrink-0 bg-rx-cyan-500 md:w-14" />
@@ -85,7 +85,7 @@ export default function Cost() {
         <p
           data-ct-close=""
           data-anim="hidden"
-          className="mt-32 max-w-[34ch] text-[clamp(1.1rem,2.6vw,1.9rem)] font-medium leading-[1.35] text-white md:mt-48"
+          className="mt-16 max-w-[34ch] text-[clamp(1.1rem,2.6vw,1.9rem)] font-medium leading-[1.35] text-white md:mt-24"
         >
           Continuar como está custa muito mais.
           <span className="mt-3 block text-rx-silver/60">

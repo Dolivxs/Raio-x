@@ -11,7 +11,7 @@ const LINHAS = [
 ]
 
 /** Razão entre o diâmetro do vidro e a largura total do SVG do aro. */
-const FRAME_RATIO = 1 / 0.62
+const FRAME_RATIO = 1 / 0.5
 
 export default function SymptomCause() {
   const root = useSection<HTMLElement>(({ root, mm }) => {
@@ -31,13 +31,13 @@ export default function SymptomCause() {
 
     mm.add({ isDesktop: MQ.desktop, isMotion: MQ.motion }, (ctx) => {
       const { isDesktop, isMotion } = ctx.conditions as Record<string, boolean>
-      const r = isDesktop ? 190 : 88
+      const r = isDesktop ? 250 : 106
       sceneEl.style.setProperty('--lr', `${r}px`)
 
       if (!isMotion) {
         // Sem movimento: a lente descansa sobre a primeira linha e o texto fica legível.
         gsap.set(sceneEl, { '--lx': 0.38, '--ly': 0.52 })
-        gsap.set('[data-sc-a], [data-sc-b], [data-sc-note]', { opacity: 1, y: 0 })
+        gsap.set('[data-sc-b], [data-sc-note]', { opacity: 1, y: 0 })
         return
       }
 
@@ -49,45 +49,47 @@ export default function SymptomCause() {
       // sejam lidas como fração do progresso do scroll.
       tl.to({}, { duration: 1 }, 0)
 
-      tl.fromTo('[data-sc-a]', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.1 }, 0)
+      tl.fromTo('[data-sc-b]', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.08 }, 0.04)
 
       // A lupa varre a composição: desce pelas linhas e sobe para a virada final.
+      // A lupa varre a linha que troca. Fora dela não há nada para revelar.
+      // A lente ou está CENTRADA na linha que troca, ou claramente abaixo dela.
+      // Posição intermediária produz palavra híbrida ("O SINTOMASA."), então o
+      // percurso estaciona no ponto de leitura e se afasta por baixo — a linha
+      // fica acima do círculo, sem interseção.
       const path = isDesktop
         ? [
-            // O percurso fica sobre a coluna de texto (~10%-54% da largura),
-            // senão em telas largas a lupa varre o vazio à direita.
-            { x: 0.15, y: 0.3 },
-            { x: 0.27, y: 0.52 },
-            { x: 0.44, y: 0.66 },
-            { x: 0.5, y: 0.44 },
-            { x: 0.33, y: 0.3 },
+            { x: 0.32, y: 0.74 },
+            { x: 0.19, y: 0.42 },
+            { x: 0.19, y: 0.42 },
+            { x: 0.34, y: 0.71 },
+            { x: 0.19, y: 0.42 },
           ]
         : [
-            { x: 0.3, y: 0.26 },
-            { x: 0.58, y: 0.44 },
-            { x: 0.34, y: 0.62 },
-            { x: 0.6, y: 0.74 },
-            { x: 0.46, y: 0.36 },
+            { x: 0.56, y: 0.72 },
+            { x: 0.25, y: 0.38 },
+            { x: 0.25, y: 0.38 },
+            { x: 0.60, y: 0.69 },
+            { x: 0.25, y: 0.38 },
           ]
 
       gsap.set(sceneEl, { '--lx': path[0].x, '--ly': path[0].y })
       path.slice(1).forEach((p, i) => {
         tl.to(
           sceneEl,
-          { '--lx': p.x, '--ly': p.y, ease: 'power1.inOut', duration: 0.2 },
-          0.08 + i * 0.2,
+          { '--lx': p.x, '--ly': p.y, ease: 'power2.inOut', duration: 0.14 },
+          0.1 + i * 0.21,
         )
       })
 
-      tl.fromTo('[data-sc-b]', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.08 }, 0.1)
-        .fromTo('[data-sc-note]', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.08 }, 0.3)
+      tl.fromTo('[data-sc-note]', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.08 }, 0.22)
     })
 
     return () => ro.disconnect()
   })
 
   return (
-    <section ref={root} className="relative h-[300vh] w-full bg-rx-navy-950 md:h-[360vh]">
+    <section ref={root} className="relative h-[195vh] w-full md:h-[220vh]">
       <div
         data-sc-scene=""
         className="sticky top-0 h-[100svh] w-full overflow-hidden"
@@ -101,7 +103,7 @@ export default function SymptomCause() {
           } as React.CSSProperties
         }
       >
-        <Atmosphere grid />
+        <Atmosphere tone="symptom" grid vignette={1.45} />
 
         {/* ---------- camada SINTOMA (superfície) ---------- */}
         <div className="absolute inset-0">
@@ -130,7 +132,7 @@ export default function SymptomCause() {
                 'translate3d(calc(var(--lr) - var(--sw) * var(--lx)), calc(var(--lr) - var(--sh) * var(--ly)), 0)',
             }}
           >
-            <div className="absolute inset-0 bg-rx-cyan-500/[0.07]" />
+            <div className="absolute inset-0 bg-rx-cyan-500/[0.10]" />
             <Layer variant="causa" />
           </div>
         </div>
@@ -154,8 +156,9 @@ export default function SymptomCause() {
 }
 
 /**
- * As duas camadas compartilham exatamente a mesma malha. Qualquer divergência
- * de posicionamento aparece como fantasma na borda da lente.
+ * As duas camadas são IDÊNTICAS, exceto pela linha que troca.
+ * É isso que faz a revelação ser lida em menos de um segundo: o olho só
+ * precisa registrar uma diferença, não recompor a cena inteira.
  */
 function Layer({ variant }: { variant: 'sintoma' | 'causa' }) {
   const causa = variant === 'causa'
@@ -163,18 +166,19 @@ function Layer({ variant }: { variant: 'sintoma' | 'causa' }) {
   return (
     <div className="relative z-10 mx-auto flex h-full w-full max-w-[1600px] flex-col justify-center px-5 md:px-10">
       <div className="w-full max-w-[52rem]">
-        <div className="relative">
-          <h2 data-sc-a={causa ? undefined : ''} className="rx-display text-d3">
-            <span className={causa ? 'text-rx-silver/45' : 'text-white'}>VOCÊ ESTÁ TRATANDO</span>
-            <br />
-            {causa ? (
-              <span className="rx-accent">NÃO A CAUSA.</span>
-            ) : (
-              <span className="text-rx-silver/55">O SINTOMA.</span>
-            )}
-          </h2>
-        </div>
+        <h2 className="rx-display">
+          {/* linha 1 — igual nas duas camadas */}
+          <span className="block text-d4 text-rx-silver/55">VOCÊ ESTÁ TRATANDO</span>
+          {/* linha 2 — a única coisa que a lente troca. Dimensionada para caber
+              inteira dentro da lente, senão a leitura vira palavra híbrida. */}
+          {causa ? (
+            <span className="block text-[clamp(1.5rem,4.3vw,3rem)] rx-accent">NÃO A CAUSA.</span>
+          ) : (
+            <span className="block text-[clamp(1.5rem,4.3vw,3rem)] text-white">O SINTOMA.</span>
+          )}
+        </h2>
 
+        {/* daqui para baixo, tudo igual nas duas camadas */}
         <ul data-sc-b={causa ? undefined : ''} className="mt-10 space-y-5 md:mt-14 md:space-y-7">
           {LINHAS.map((l) => (
             <li key={l.sintoma} className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
@@ -182,15 +186,9 @@ function Layer({ variant }: { variant: 'sintoma' | 'causa' }) {
                 {l.sintoma}
               </span>
               <span className="h-4 w-px bg-rx-cyan-500/60" />
-              {causa ? (
-                <span className="rx-eyebrow text-rx-cyan-500">
-                  O QUE ESTÁ POR BAIXO DA SUPERFÍCIE
-                </span>
-              ) : (
-                <span className="text-[clamp(0.95rem,1.7vw,1.25rem)] font-semibold text-white">
-                  {l.reacao}
-                </span>
-              )}
+              <span className="text-[clamp(0.95rem,1.7vw,1.25rem)] font-semibold text-white">
+                {l.reacao}
+              </span>
             </li>
           ))}
         </ul>
@@ -199,17 +197,8 @@ function Layer({ variant }: { variant: 'sintoma' | 'causa' }) {
           data-sc-note={causa ? undefined : ''}
           className="rx-body mt-12 max-w-[46ch] text-rx-silver md:mt-16"
         >
-          {causa ? (
-            <>
-              Exame sem laudo é só imagem. Aqui a gente lê o resultado juntos.{' '}
-              <strong className="text-white">Causa raiz, não sintoma.</strong>
-            </>
-          ) : (
-            <>
-              E é por isso que, mesmo fazendo tudo,{' '}
-              <strong className="text-white">o problema sempre volta.</strong>
-            </>
-          )}
+          E é por isso que, mesmo fazendo tudo,{' '}
+          <strong className="text-white">o problema sempre volta.</strong>
         </p>
       </div>
     </div>

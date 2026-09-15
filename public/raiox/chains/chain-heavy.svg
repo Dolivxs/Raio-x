@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300.00 1384.60" width="300.00" height="1384.60" fill="none" preserveAspectRatio="none">
+  <defs>
+  <linearGradient id="steelFace" x1="0.05" y1="0" x2="0.85" y2="1">
+    <stop offset="0%"   stop-color="#F4F8FC"/>
+    <stop offset="18%"  stop-color="#C9D4E0"/>
+    <stop offset="42%"  stop-color="#8A9AAC"/>
+    <stop offset="58%"  stop-color="#5B6B7E"/>
+    <stop offset="78%"  stop-color="#A8B6C5"/>
+    <stop offset="100%" stop-color="#6A7A8D"/>
+  </linearGradient>
+  <linearGradient id="steelEdge" x1="0" y1="0" x2="0.6" y2="1">
+    <stop offset="0%"   stop-color="#2B3B4E"/>
+    <stop offset="100%" stop-color="#0C1826"/>
+  </linearGradient>
+  <linearGradient id="darkFace" x1="0.05" y1="0" x2="0.85" y2="1">
+    <stop offset="0%"   stop-color="#33506E"/>
+    <stop offset="30%"  stop-color="#1B3049"/>
+    <stop offset="62%"  stop-color="#0D1B2C"/>
+    <stop offset="85%"  stop-color="#22384F"/>
+    <stop offset="100%" stop-color="#0A1626"/>
+  </linearGradient>
+  <linearGradient id="goldFace" x1="0.05" y1="0" x2="0.8" y2="1">
+    <stop offset="0%"   stop-color="#FBF0C8"/>
+    <stop offset="20%"  stop-color="#E3C566"/>
+    <stop offset="46%"  stop-color="#B98F1E"/>
+    <stop offset="66%"  stop-color="#7A5D10"/>
+    <stop offset="86%"  stop-color="#E8D08A"/>
+    <stop offset="100%" stop-color="#9A7818"/>
+  </linearGradient>
+  <radialGradient id="hubDome" cx="0.36" cy="0.32" r="0.78">
+    <stop offset="0%"   stop-color="#FFFDF2"/>
+    <stop offset="26%"  stop-color="#E8CE7C"/>
+    <stop offset="62%"  stop-color="#B2871A"/>
+    <stop offset="100%" stop-color="#6B510E"/>
+  </radialGradient>
+  <radialGradient id="hubSteel" cx="0.36" cy="0.32" r="0.78">
+    <stop offset="0%"   stop-color="#FFFFFF"/>
+    <stop offset="30%"  stop-color="#CBD6E2"/>
+    <stop offset="70%"  stop-color="#718295"/>
+    <stop offset="100%" stop-color="#39485A"/>
+  </radialGradient>
+  <radialGradient id="boreAO" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0%"   stop-color="#02070D"/>
+    <stop offset="72%"  stop-color="#02070D"/>
+    <stop offset="100%" stop-color="#16283C"/>
+  </radialGradient>
+  <linearGradient id="specSweep" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="42%"  stop-color="#FFFFFF" stop-opacity="0.5"/>
+    <stop offset="58%"  stop-color="#FFFFFF" stop-opacity="0.5"/>
+    <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+  </linearGradient>
+</defs>
+    <ellipse cx="158.64" cy="225.08" rx="93.00" ry="189.20" fill="none" stroke="#030B14" stroke-opacity="0.75" stroke-width="45.00"/>
+    <ellipse cx="150.00" cy="215.00" rx="93.00" ry="189.20" fill="none" stroke="url(#goldFace)" stroke-width="45.00"/>
+    <ellipse cx="142.80" cy="207.08" rx="93.00" ry="189.20" fill="none" stroke="#FFF8DC" stroke-opacity="0.42" stroke-width="13.50"/>
+    <ellipse cx="160.08" cy="226.52" rx="93.00" ry="189.20" fill="none" stroke="#2A1F04" stroke-opacity="0.5" stroke-width="11.70"/>
+    <ellipse cx="158.64" cy="543.28" rx="39.00" ry="189.20" fill="none" stroke="#030B14" stroke-opacity="0.75" stroke-width="45.00"/>
+    <ellipse cx="150.00" cy="533.20" rx="39.00" ry="189.20" fill="none" stroke="url(#goldFace)" stroke-width="45.00"/>
+    <ellipse cx="142.80" cy="525.28" rx="39.00" ry="189.20" fill="none" stroke="#FFF8DC" stroke-opacity="0.3" stroke-width="13.50"/>
+    <ellipse cx="160.08" cy="544.72" rx="39.00" ry="189.20" fill="none" stroke="#2A1F04" stroke-opacity="0.5" stroke-width="11.70"/>
+    <ellipse cx="158.64" cy="861.48" rx="93.00" ry="189.20" fill="none" stroke="#030B14" stroke-opacity="0.75" stroke-width="45.00"/>
+    <ellipse cx="150.00" cy="851.40" rx="93.00" ry="189.20" fill="none" stroke="url(#goldFace)" stroke-width="45.00"/>
+    <ellipse cx="142.80" cy="843.48" rx="93.00" ry="189.20" fill="none" stroke="#FFF8DC" stroke-opacity="0.42" stroke-width="13.50"/>
+    <ellipse cx="160.08" cy="862.92" rx="93.00" ry="189.20" fill="none" stroke="#2A1F04" stroke-opacity="0.5" stroke-width="11.70"/>
+    <ellipse cx="158.64" cy="1179.68" rx="39.00" ry="189.20" fill="none" stroke="#030B14" stroke-opacity="0.75" stroke-width="45.00"/>
+    <ellipse cx="150.00" cy="1169.60" rx="39.00" ry="189.20" fill="none" stroke="url(#goldFace)" stroke-width="45.00"/>
+    <ellipse cx="142.80" cy="1161.68" rx="39.00" ry="189.20" fill="none" stroke="#FFF8DC" stroke-opacity="0.3" stroke-width="13.50"/>
+    <ellipse cx="160.08" cy="1181.12" rx="39.00" ry="189.20" fill="none" stroke="#2A1F04" stroke-opacity="0.5" stroke-width="11.70"/>
+</svg>

@@ -5,13 +5,15 @@ import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
 
 /** Posições editoriais diferentes por palavra — nada de lista alinhada. */
+/** Escalas e tons deliberadamente desiguais: algumas palavras estão perto da
+ *  câmera, outras recuadas. É o que tira a lista do plano único.            */
 const TENTATIVAS = [
-  { label: 'CURSOS', pos: 'md:ml-[4%] md:mr-auto', size: 'text-[clamp(2rem,9vw,6.5rem)]' },
-  { label: 'CONSULTORIA', pos: 'md:ml-auto md:mr-[6%]', size: 'text-[clamp(1.7rem,7.4vw,5.4rem)]' },
-  { label: 'LIVROS', pos: 'md:ml-[18%] md:mr-auto', size: 'text-[clamp(2rem,8.6vw,6rem)]' },
-  { label: 'MENTORIAS', pos: 'md:ml-auto md:mr-[16%]', size: 'text-[clamp(1.8rem,7.8vw,5.6rem)]' },
-  { label: 'TROCAR PESSOAS', pos: 'md:ml-[8%] md:mr-auto', size: 'text-[clamp(1.5rem,6.4vw,4.6rem)]' },
-  { label: 'MUDAR PROCESSOS', pos: 'md:ml-auto md:mr-[4%]', size: 'text-[clamp(1.5rem,6.4vw,4.6rem)]' },
+  { label: 'CURSOS',           pos: 'md:ml-[2%]  md:mr-auto', size: 'text-[clamp(2.2rem,10.5vw,7.6rem)]', tone: 'text-rx-silver/90', depth: 1.0 },
+  { label: 'CONSULTORIA',      pos: 'md:ml-auto md:mr-[8%]',  size: 'text-[clamp(1.4rem,6.0vw,4.2rem)]',  tone: 'text-rx-silver/45', depth: 0.35 },
+  { label: 'LIVROS',           pos: 'md:ml-[22%] md:mr-auto', size: 'text-[clamp(2.4rem,11vw,8rem)]',     tone: 'text-rx-silver/95', depth: 1.15 },
+  { label: 'MENTORIAS',        pos: 'md:ml-auto md:mr-[18%]', size: 'text-[clamp(1.3rem,5.4vw,3.8rem)]',  tone: 'text-rx-silver/40', depth: 0.3 },
+  { label: 'TROCAR PESSOAS',   pos: 'md:ml-[6%]  md:mr-auto', size: 'text-[clamp(1.6rem,7vw,5rem)]',      tone: 'text-rx-silver/70', depth: 0.65 },
+  { label: 'MUDAR PROCESSOS',  pos: 'md:ml-auto md:mr-[2%]',  size: 'text-[clamp(1.9rem,8.4vw,6rem)]',    tone: 'text-rx-silver/85', depth: 0.9 },
 ]
 
 export default function Attempts() {
@@ -41,10 +43,12 @@ export default function Attempts() {
       words.forEach((w, i) => {
         const at = 0.1 + i * 0.1
         const dir = i % 2 === 0 ? -1 : 1
-        // entra de fora da composição, é riscada, perde peso
+        const depth = Number(w.dataset.depth ?? 1)
+        // Entra de fora da composição, é riscada, perde peso.
+        // Quanto mais perto da câmera, maior o deslocamento de entrada.
         tl.fromTo(
           w,
-          { opacity: 0, x: 70 * dir * k },
+          { opacity: 0, x: 70 * dir * k * depth },
           { opacity: 1, x: 0, duration: 0.07, ease: 'power2.out' },
           at,
         )
@@ -67,9 +71,9 @@ export default function Attempts() {
   })
 
   return (
-    <section ref={root} className="relative h-[260vh] w-full bg-rx-navy-950 md:h-[320vh]">
+    <section ref={root} className="relative h-[155vh] w-full md:h-[180vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
-        <Atmosphere vignette={false} />
+        <Atmosphere tone="attempts" vignette={0.7} />
 
         <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
           <p
@@ -85,13 +89,14 @@ export default function Attempts() {
               <span
                 key={t.label}
                 data-at-word=""
+                data-depth={t.depth}
                 data-anim="hidden"
                 className={`relative inline-block w-fit ${t.pos}`}
               >
-                <span className={`rx-display ${t.size} text-rx-silver/85`}>{t.label}</span>
+                <span className={`rx-display ${t.size} ${t.tone}`}>{t.label}</span>
                 <span
                   data-at-strike=""
-                  className="absolute left-0 top-1/2 h-[3px] w-full origin-left bg-rx-cyan-500 md:h-[5px]"
+                  className="absolute left-0 top-1/2 h-[2px] w-full origin-left bg-rx-cyan-500 md:h-[4px]"
                   style={{ transform: 'scaleX(0)' }}
                 />
               </span>

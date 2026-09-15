@@ -39,30 +39,48 @@ export default function Diagnosis() {
   })
 
   return (
-    <section ref={root} className="relative h-[280vh] w-full bg-rx-navy-950 md:h-[340vh]">
+    <section ref={root} className="relative h-[180vh] w-full md:h-[210vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
-        <Atmosphere grid />
+        <Atmosphere tone="diagnosis" grid vignette={0.9} />
 
-        {/* mecanismo entrando em cena — cortado pelas bordas, três escalas */}
+        {/* ---------- mecanismo em três profundidades declaradas ----------
+            fundo: quase preto e fora de foco · meio: prata em foco ·
+            frente: pequena dourada, grande na tela e levemente desfocada. */}
+
+        {/* BACKGROUND — quase submersa */}
         <Gear
-          variant="primary"
-          spin={180}
-          className="absolute -right-[26%] -top-[14%] w-[80vw] max-w-[720px] opacity-90 md:-right-[9%] md:-top-[18%] md:w-[38vw]"
-        />
-        <Gear
-          variant="secondary"
-          spin={-120}
-          className="absolute -right-[6%] top-[42%] w-[48vw] max-w-[420px] opacity-80 md:right-[22%] md:top-[54%] md:w-[22vw]"
-        />
-        <Gear
-          variant="small"
-          spin={80}
-          className="absolute -left-[12%] bottom-[6%] w-[34vw] max-w-[240px] opacity-85 md:left-[6%] md:bottom-[10%] md:w-[13vw]"
+          variant="ghost"
+          spin={-40}
+          className="absolute -left-[32%] -top-[6%] w-[92vw] max-w-[900px] opacity-40 blur-[4px]
+            md:-left-[18%] md:w-[48vw]"
         />
         <Gear
           variant="ghost"
-          spin={-46}
-          className="absolute -left-[30%] top-[2%] w-[86vw] max-w-[860px] opacity-60 md:-left-[16%] md:w-[44vw]"
+          spin={30}
+          className="absolute -right-[30%] top-[52%] w-[74vw] max-w-[700px] opacity-30 blur-[5px]
+            md:-right-[14%] md:w-[36vw]"
+        />
+
+        {/* MIDGROUND — prata, nítida, é a peça que se lê */}
+        <Gear
+          variant="primary"
+          spin={180}
+          className="absolute -right-[24%] -top-[16%] w-[82vw] max-w-[740px] opacity-95
+            md:-right-[8%] md:-top-[20%] md:w-[38vw]"
+        />
+        <Gear
+          variant="secondary"
+          spin={-124}
+          className="absolute -right-[4%] top-[44%] w-[46vw] max-w-[400px] opacity-85
+            md:right-[24%] md:top-[56%] md:w-[21vw]"
+        />
+
+        {/* FOREGROUND — dourada, colada na câmera, cortada pela borda */}
+        <Gear
+          variant="small"
+          spin={86}
+          className="absolute -left-[22%] -bottom-[16%] w-[68vw] max-w-[440px] opacity-95 blur-[2px]
+            md:-left-[7%] md:-bottom-[20%] md:w-[26vw]"
         />
 
         <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">

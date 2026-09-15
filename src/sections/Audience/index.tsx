@@ -54,9 +54,9 @@ export default function Audience() {
   return (
     <section
       ref={root}
-      className="relative w-full overflow-hidden bg-rx-navy-950 py-[16vh] md:py-[20vh]"
+      className="relative w-full overflow-hidden py-[11vh] md:py-[14vh]"
     >
-      <Atmosphere />
+      <Atmosphere tone="audience" vignette={0.8} />
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
         <div data-au-head="" className="max-w-[20ch]">

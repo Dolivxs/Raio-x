@@ -9,21 +9,24 @@ import { gsap } from '@/lib/motion'
 
 export default function Hero() {
   const root = useSection<HTMLElement>(({ root, mm }) => {
-    // Entrada: rápida. A página precisa ficar utilizável logo — nada de splash.
+    // Entrada rápida: a página precisa ficar utilizável logo, sem splash.
     mm.add(MQ.motion, () => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
       tl.set('[data-anim="hidden"]', { opacity: 0 })
-        .to('[data-hero-detail]', { opacity: 1, duration: 0.9, stagger: 0.12 }, 0)
+        .to('[data-hero-bg]', { opacity: 1, duration: 1.2 }, 0)
+        .to('[data-hero-mg]', { opacity: 1, duration: 1.0 }, 0.12)
+        .to('[data-hero-fg]', { opacity: 1, duration: 0.9 }, 0.2)
+        .to('[data-hero-detail]', { opacity: 1, duration: 0.8, stagger: 0.1 }, 0.15)
         .fromTo(
           '[data-hero-mark]',
-          { opacity: 0, scale: 1.06, filter: 'blur(6px)' },
+          { opacity: 0, scale: 1.05, filter: 'blur(7px)' },
           { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.1 },
-          0.25,
+          0.3,
         )
-        .fromTo('[data-hero-sub]', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7 }, 0.85)
-        .fromTo('[data-hero-line]', { scaleX: 0 }, { scaleX: 1, duration: 0.9 }, 0.9)
-        .fromTo('[data-hero-head]', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.9 }, 1.0)
-        .fromTo('[data-hero-cue]', { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.35)
+        .fromTo('[data-hero-sub]', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7 }, 0.9)
+        .fromTo('[data-hero-line]', { scaleX: 0 }, { scaleX: 1, duration: 0.9 }, 0.95)
+        .fromTo('[data-hero-head]', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.9 }, 1.05)
+        .fromTo('[data-hero-cue]', { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.4)
     })
 
     mm.add(MQ.reduced, () => {
@@ -31,20 +34,21 @@ export default function Hero() {
       gsap.set('[data-hero-line]', { scaleX: 1 })
     })
 
-    // Saída: o hero se desmonta e entrega a cena para a ampulheta.
+    // Saída: cada plano sai numa velocidade — é o que faz o hero virar cena.
     mm.add({ isDesktop: MQ.desktop, isMotion: MQ.motion }, (ctx) => {
       if (!ctx.conditions?.isMotion) return
-      const far = ctx.conditions.isDesktop ? 1 : 0.55
+      const k = ctx.conditions.isDesktop ? 1 : 0.55
       const out = gsap.timeline({
         scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: 1 },
       })
       out
-        .to('[data-hero-mark]', { yPercent: -34, scale: 0.9, opacity: 0.15, ease: 'none' }, 0)
-        .to('[data-hero-head]', { yPercent: -60, opacity: 0, ease: 'none' }, 0)
+        .to('[data-hero-mark]', { yPercent: -32, scale: 0.92, opacity: 0.12, ease: 'none' }, 0)
+        .to('[data-hero-head]', { yPercent: -58, opacity: 0, ease: 'none' }, 0)
         .to('[data-hero-cue]', { opacity: 0, ease: 'none', duration: 0.3 }, 0)
-        .to('[data-hero-gear]', { rotate: 42 * far, yPercent: -14 * far, ease: 'none' }, 0)
-        .to('[data-hero-chain]', { yPercent: 26 * far, ease: 'none' }, 0)
-        .to('[data-hero-gear-sm]', { rotate: -68 * far, xPercent: -10 * far, ease: 'none' }, 0)
+        .to('[data-hero-bg]', { rotate: 26 * k, yPercent: -7 * k, ease: 'none' }, 0)
+        .to('[data-hero-mg]', { rotate: -58 * k, xPercent: -9 * k, yPercent: -16 * k, ease: 'none' }, 0)
+        .to('[data-hero-fg]', { yPercent: 34 * k, ease: 'none' }, 0)
+        .to('[data-hero-edge]', { yPercent: -26 * k, rotate: 30 * k, ease: 'none' }, 0)
     })
   })
 
@@ -52,37 +56,52 @@ export default function Hero() {
     <section
       ref={root}
       id="topo"
-      className="relative isolate flex h-[100svh] min-h-[600px] w-full flex-col overflow-hidden bg-rx-navy-950"
+      className="relative isolate flex h-[100svh] min-h-[600px] w-full flex-col overflow-hidden"
     >
-      <Atmosphere grid />
+      <Atmosphere tone="hero" grid vignette={1.0} />
 
-      {/* background — engrenagem fantasma, cortada pelo canto */}
+      {/* ---------- BACKGROUND: fundo do mecanismo, fora de foco ---------- */}
       <Gear
         variant="ghost"
         data-anim="hidden"
-        spin={42}
-        className="absolute -right-[22%] -top-[26%] w-[85vw] max-w-[900px] opacity-0 md:-right-[10%] md:-top-[30%] md:w-[52vw]"
-        data-hero-detail=""
+        data-hero-bg=""
+        className="absolute -right-[24%] -top-[28%] w-[92vw] max-w-[980px] opacity-0 blur-[3px]
+          md:-right-[11%] md:-top-[34%] md:w-[56vw]"
+        style={{ opacity: 0 }}
       />
 
-      {/* middleground — engrenagem menor, cortada pela borda esquerda */}
+      {/* ---------- MIDGROUND: peça de aço cortada pela borda esquerda ---------- */}
       <Gear
         variant="secondary"
         data-anim="hidden"
-        className="absolute -left-[18%] top-[52%] w-[46vw] max-w-[380px] opacity-0 md:-left-[7%] md:top-[46%] md:w-[22vw]"
-        data-hero-gear-sm=""
+        data-hero-mg=""
+        className="absolute -left-[24%] top-[58%] w-[52vw] max-w-[420px] opacity-0 blur-[1px]
+          md:-left-[13%] md:top-[40%] md:w-[26vw]"
+        style={{ opacity: 0 }}
       />
 
-      {/* foreground — corrente atravessando na diagonal */}
-      <Chain
+      {/* ---------- peça entrando pela borda inferior direita ---------- */}
+      <Gear
+        variant="small"
         data-anim="hidden"
+        data-hero-edge=""
         data-hero-detail=""
-        data-hero-chain=""
-        className="absolute -top-[18%] right-[6%] z-20 h-[150%] w-[34px] rotate-[15deg] opacity-0 md:-left-[2%] md:right-auto md:w-[54px]"
+        className="absolute -bottom-[14%] right-[6%] w-[30vw] max-w-[190px] opacity-0
+          md:-bottom-[11%] md:right-[14%] md:w-[11vw]"
+        style={{ opacity: 0 }}
+      />
+
+      {/* ---------- FOREGROUND: corrente colada na câmera, levemente desfocada ---------- */}
+      <Chain
+        variant="heavy"
+        data-anim="hidden"
+        data-hero-fg=""
+        className="absolute -top-[26%] -right-[6%] z-20 h-[164%] w-[78px] rotate-[9deg] opacity-0 blur-[2px]
+          md:-left-[15%] md:right-auto md:w-[230px]"
+        style={{ opacity: 0 }}
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-between px-5 pb-16 pt-24 md:px-10 md:pb-20 md:pt-28">
-        {/* topo */}
         <div className="flex items-start justify-between gap-6">
           <p data-anim="hidden" data-hero-detail="" className="rx-eyebrow text-rx-cyan-500/80 opacity-0">
             {eventData.city} · {eventData.date}
@@ -96,7 +115,6 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* marca — grande, alinhada à esquerda, ocupando a composição */}
         <div className="-mt-4 md:-mt-10">
           <h1 data-anim="hidden" data-hero-mark="" className="rx-display opacity-0">
             <span className="block text-[clamp(3.6rem,17vw,15rem)] leading-[0.82]">
@@ -119,7 +137,6 @@ export default function Hero() {
           />
         </div>
 
-        {/* base — headline deslocada para a direita, coluna estreita */}
         <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <p data-anim="hidden" data-hero-cue="" className="rx-eyebrow flex items-center gap-3 text-rx-silver/40 opacity-0">
             <span className="h-8 w-px bg-rx-cyan-500/50 md:h-12" />

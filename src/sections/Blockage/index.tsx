@@ -20,7 +20,8 @@ export default function Blockage() {
       const k = isDesktop ? 1 : 0.45
 
       // Três planos, três velocidades — é a diferença que cria a profundidade.
-      parallax('[data-bk-fg]', 'foreground', 460 * k, root)
+      parallax('[data-bk-fg]', 'foreground', 620 * k, root)
+      parallax('[data-bk-fg2]', 'foreground', 430 * k, root)
       parallax('[data-bk-mg]', 'middleground', 460 * k, root)
       parallax('[data-bk-bg]', 'background', 460 * k, root)
 
@@ -43,9 +44,9 @@ export default function Blockage() {
   return (
     <section
       ref={root}
-      className="relative w-full overflow-hidden bg-rx-navy-950 pb-[10vh] pt-[16vh] md:pb-[12vh] md:pt-[20vh]"
+      className="relative w-full overflow-hidden pb-[10vh] pt-[14vh] md:pb-[12vh] md:pt-[18vh]"
     >
-      <Atmosphere />
+      <Atmosphere tone="blockage" vignette={1.35} />
 
       {/* background — engrenagem distante, quase submersa */}
       <Gear
@@ -60,10 +61,18 @@ export default function Blockage() {
         className="absolute -top-[10%] right-[16%] h-[130%] w-[26px] rotate-[-11deg] opacity-45 md:right-[26%] md:w-[34px]"
       />
 
-      {/* foreground — corrente pesada atravessando a viewport, na frente do texto */}
+      {/* foreground — 3 ou 4 elos gigantes atravessando a câmera, fora de foco.
+          Não é para caber inteira: é para parecer perto demais.            */}
       <Chain
+        variant="heavy"
         data-bk-fg=""
-        className="absolute -top-[16%] left-[-4%] z-20 h-[145%] w-[54px] rotate-[14deg] opacity-95 md:left-[8%] md:w-[76px]"
+        className="absolute -top-[34%] -left-[26%] z-20 h-[190%] w-[124px] rotate-[17deg] opacity-55 blur-[3px]
+          md:left-[2%] md:w-[300px] md:opacity-90"
+      />
+      <Chain
+        data-bk-fg2=""
+        className="absolute -top-[12%] left-[34%] z-20 hidden h-[132%] w-[44px] rotate-[9deg] opacity-80 blur-[1px]
+          md:block md:left-[30%] md:w-[62px]"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">

@@ -1,7 +1,8 @@
 'use client'
 
 import Atmosphere from '@/components/art/Atmosphere'
-import Hourglass from '@/components/art/Hourglass'
+import Chain from '@/components/art/Chain'
+import Hourglass, { SAND_ORIGIN } from '@/components/art/Hourglass'
 import Rope from '@/components/art/Rope'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
@@ -19,11 +20,16 @@ export default function Overwork() {
       const k = isDesktop ? 1 : 0.5 // mobile: mesmos movimentos, amplitude menor
 
       if (!isMotion) {
-        gsap.set('[data-sand-top]', { scaleY: 0.15 })
-        gsap.set('[data-sand-bottom]', { scaleY: 0.85 })
+        gsap.set('[data-sand-top]', { scaleY: 0.15, svgOrigin: SAND_ORIGIN.top })
+        gsap.set('[data-sand-bottom]', { scaleY: 0.85, svgOrigin: SAND_ORIGIN.bottom })
         gsap.set('[data-ow-a], [data-ow-b], [data-ow-list] > li', { opacity: 1, y: 0 })
         return
       }
+
+      // A origem do scale da areia é fixada uma única vez, em coordenadas do
+      // viewBox. Passá-la dentro de um fromTo faz o GSAP interpolar a origem.
+      gsap.set('[data-sand-top]', { svgOrigin: SAND_ORIGIN.top })
+      gsap.set('[data-sand-bottom]', { svgOrigin: SAND_ORIGIN.bottom })
 
       const tl = gsap.timeline({
         scrollTrigger: { trigger: root, start: 'top 80%', end: 'bottom bottom', scrub: 1 },
@@ -59,16 +65,27 @@ export default function Overwork() {
         )
 
       tl.fromTo('[data-rope-path]', { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: 'none', duration: 0.5 }, 0.45)
+
+      // O foreground corre mais rápido que o objeto principal — profundidade.
+      tl.fromTo('[data-ow-fg]', { yPercent: -16 * k }, { yPercent: 22 * k, ease: 'none', duration: 1 }, 0)
     })
   })
 
   return (
-    <section ref={root} className="relative h-[300vh] w-full bg-rx-navy-950 md:h-[360vh]">
+    <section ref={root} className="relative h-[200vh] w-full md:h-[230vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
-        <Atmosphere />
+        <Atmosphere tone="overwork" vignette={0.9} />
 
         {/* corda: fio condutor que costura esta seção com a próxima */}
-        <Rope className="absolute bottom-[8%] left-0 h-[24vh] w-[130%] opacity-60" tone="silver" />
+        <Rope className="absolute bottom-[8%] left-0 h-[24vh] w-[130%] opacity-50" tone="silver" />
+
+        {/* foreground: corrente muito próxima da câmera, fora de foco */}
+        <Chain
+          variant="heavy"
+          data-ow-fg=""
+          className="absolute -top-[24%] -right-[10%] z-20 h-[156%] w-[70px] rotate-[-13deg] opacity-40 blur-[3px]
+            md:right-[6%] md:w-[168px] md:opacity-70"
+        />
 
         {/* AMPULHETA — objeto principal, grande, parcialmente fora da viewport */}
         <Hourglass

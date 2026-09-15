@@ -85,9 +85,9 @@ export default function Method() {
   })
 
   return (
-    <section ref={root} className="relative h-[440vh] w-full bg-rx-navy-950 md:h-[580vh]">
+    <section ref={root} className="relative h-[290vh] w-full md:h-[380vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
-        <Atmosphere grid />
+        <Atmosphere tone="method" grid vignette={1.0} />
 
         {/* ---------- mecanismo ---------- */}
         <div aria-hidden className="absolute inset-0 opacity-30 md:opacity-100">
@@ -105,13 +105,13 @@ export default function Method() {
           </div>
           <div
             data-mt-slot=""
-            className="absolute left-[52%] top-[30%] w-[26vw] max-w-[240px] md:left-[34%] md:top-[32%] md:w-[11vw]"
+            className="absolute left-[52%] top-[30%] w-[26vw] max-w-[240px] blur-[1px] md:left-[34%] md:top-[32%] md:w-[11vw]"
           >
             <Gear variant="small" spin={94} className="w-full" />
           </div>
           <div
             data-mt-slot=""
-            className="absolute -left-[26%] -top-[10%] w-[92vw] max-w-[900px] opacity-60 md:-left-[12%] md:-top-[16%] md:w-[42vw]"
+            className="absolute -left-[26%] -top-[10%] w-[92vw] max-w-[900px] opacity-45 blur-[4px] md:-left-[12%] md:-top-[16%] md:w-[42vw]"
           >
             <Gear variant="ghost" spin={-58} className="w-full" />
           </div>
