@@ -1,6 +1,6 @@
 import SmoothScroll from '@/components/motion/SmoothScroll'
 import GlobalAtmosphere from '@/components/stage/GlobalAtmosphere'
-import PersistentStage from '@/components/stage/PersistentStage'
+import MechanicalWorld from '@/components/stage/MechanicalWorld'
 import DiagnosticProgress from '@/components/ui/DiagnosticProgress'
 import Header from '@/components/ui/Header'
 
@@ -25,7 +25,7 @@ export default function Page() {
       {/* Background contínuo e camada mecânica persistente vivem FORA das
           seções — é isso que faz a landing ser uma experiência só. */}
       <GlobalAtmosphere />
-      <PersistentStage />
+      <MechanicalWorld />
 
       <Header />
       <DiagnosticProgress />

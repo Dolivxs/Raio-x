@@ -3,6 +3,10 @@
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
 
+/** Ampliação dentro da lente. O asset tem vidro semitransparente, então a
+ *  camada de causa aparece através dele, maior — como uma lupa de verdade. */
+const MAG = 1.2
+
 const LINHAS = [
   { sintoma: 'A equipe não entrega?', reacao: 'Você cobra mais.' },
   { sintoma: 'As metas não batem?', reacao: 'Você contrata mais.' },
@@ -113,12 +117,16 @@ export default function SymptomCause() {
           }}
         >
           <div
-            className="absolute left-0 top-0 bg-rx-navy-950"
+            className="absolute left-0 top-0 origin-top-left bg-rx-navy-950"
             style={{
               width: 'var(--sw)',
               height: 'var(--sh)',
+              // AMPLIAÇÃO REAL: a camada revelada é escalada 1.2x em torno do
+              // centro óptico da lente. A contra-translação precisa considerar
+              // a escala, senão o conteúdo dentro da lente sai de registro.
               transform:
-                'translate3d(calc(var(--lr) - var(--sw) * var(--lx)), calc(var(--lr) - var(--sh) * var(--ly)), 0)',
+                `translate3d(calc(var(--lr) - ${MAG} * var(--sw) * var(--lx)),` +
+                ` calc(var(--lr) - ${MAG} * var(--sh) * var(--ly)), 0) scale(${MAG})`,
             }}
           >
             <div className="absolute inset-0 bg-rx-cyan-500/[0.10]" />
