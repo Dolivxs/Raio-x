@@ -42,7 +42,7 @@ export default function Blockage() {
       {/* SECUNDÁRIO — corrente ao fundo, menor e mais apagada */}
       <Chain
         data-bk-mg=""
-        className="absolute hidden md:block md:-left-[10%] md:top-[46%] md:w-[34vw] md:opacity-45
+        className="absolute hidden md:block md:-left-[17%] md:top-[54%] md:w-[21vw] md:opacity-[0.20]
           md:max-w-none md:rotate-[54deg]"
       />
 

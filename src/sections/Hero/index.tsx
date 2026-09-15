@@ -61,8 +61,8 @@ export default function Hero() {
       <Chain
         data-anim="hidden"
         data-hero-fg=""
-        className="absolute -right-[26%] top-[56%] w-[86vw] max-w-none rotate-[58deg] opacity-0
-          md:-right-[8%] md:top-[28%] md:w-[32vw] md:rotate-[62deg]"
+        className="absolute -right-[40%] top-[58%] w-[104vw] max-w-none rotate-[58deg] opacity-0
+          md:-right-[13%] md:top-[27%] md:w-[32vw] md:rotate-[62deg]"
         style={{ opacity: 0 }}
       />
 

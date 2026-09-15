@@ -71,7 +71,7 @@ export default function Overwork() {
             Não toca a ampulheta: nesta cena não há ligação física entre elas. */}
         <Chain
           data-ow-fg=""
-          className="absolute hidden md:block md:-right-[22%] md:top-[2%] md:w-[58vw] md:opacity-35
+          className="absolute hidden md:block md:-right-[32%] md:top-[0%] md:w-[46vw] md:opacity-[0.18]
             md:max-w-none md:rotate-[72deg]"
         />
 

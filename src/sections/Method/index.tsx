@@ -10,11 +10,25 @@ import { STAGES } from './stages'
  * O CSS descreve o mecanismo ORGANIZADO (estado final).
  * A desordem inicial vive aqui, como deslocamento de onde cada peça parte.
  */
+/**
+ * Deslocamento inicial de cada peça, em % da sua própria largura.
+ * As direções apontam para FORA do centro do grupo — é isso que faz a etapa 01
+ * parecer espalhada e a 06 parecer compacta. Sem isso as peças só trocam de
+ * lugar e a reorganização não se lê.
+ */
 const SCATTER = [
-  { x: -18, y: 22, r: -21, s: 1.12 },
-  { x: 34, y: -26, r: 27, s: 1.09 },
-  { x: -38, y: -30, r: 39, s: 1.15 },
+  { x: -17, y: -20, r: -19, s: 1.1 }, // dourada: sobe pela esquerda
+  { x: -11, y: 44, r: 26, s: 1.08 }, // prata: desce
+  { x: 58, y: -50, r: 38, s: 1.12 }, // ciano: sobe pela direita
 ]
+
+/**
+ * Quanto do deslocamento inicial ainda resta em cada uma das 6 etapas.
+ * 01-02 espalhadas · 03-04 se aproximando · 05 quase organizadas ·
+ * 06 composição compacta. É a leitura da desordem virando ordem.
+ */
+const CLOSING = [1, 0.88, 0.62, 0.36, 0.14, 0]
+const STEP = 1 / CLOSING.length
 
 export default function Method() {
   const root = useSection<HTMLElement>(({ root, mm }) => {
@@ -43,12 +57,24 @@ export default function Method() {
       // 1) A máquina se reorganiza ao longo de TODA a cena: da desordem ao encaixe.
       slots.forEach((slot, i) => {
         const s = SCATTER[i % SCATTER.length]
-        tl.fromTo(
-          slot,
-          { xPercent: s.x * k, yPercent: s.y * k, rotate: s.r * k, scale: s.s },
-          { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, ease: 'power1.inOut', duration: 1 },
-          0,
-        )
+        // A reorganização é lida por etapa, não como uma interpolação única:
+        // cada marco encolhe o deslocamento inicial. Só translate, rotação
+        // lenta e uma variação de escala mínima — nada de encaixe ou física.
+        tl.set(slot, { xPercent: s.x * k, yPercent: s.y * k, rotate: s.r * k, scale: s.s }, 0)
+        CLOSING.forEach((f, stage) => {
+          tl.to(
+            slot,
+            {
+              xPercent: s.x * k * f,
+              yPercent: s.y * k * f,
+              rotate: s.r * k * f,
+              scale: 1 + (s.s - 1) * f,
+              ease: 'power1.inOut',
+              duration: STEP * 0.82,
+            },
+            stage * STEP,
+          )
+        })
       })
 
       // 2) Cada engrenagem gira no seu próprio ritmo. Sentidos opostos porque
@@ -59,8 +85,13 @@ export default function Method() {
         tl.fromTo(g, { rotate: 0 }, { rotate: spin, ease: 'none', duration: 1 }, 0)
       })
 
-      // 3) As peças se aproximam ao longo da cena: a composição vai fechando.
-      tl.fromTo('[data-mt-rig]', { xPercent: -6 * k }, { xPercent: 0, ease: 'power1.inOut', duration: 1 }, 0)
+      // 3) O conjunto inteiro também fecha, nos mesmos marcos: a composição
+      //    final é mais compacta e centrada que a do começo.
+      const RIG = [-3.5, -3, -2.1, -1.2, -0.5, 0]
+      tl.set('[data-mt-rig]', { xPercent: RIG[0] * k }, 0)
+      RIG.forEach((v, stage) => {
+        tl.to('[data-mt-rig]', { xPercent: v * k, ease: 'power1.inOut', duration: STEP * 0.82 }, stage * STEP)
+      })
 
       // 4) Etapas: uma de cada vez, no mesmo espaço.
       const span = 1 / STAGES.length

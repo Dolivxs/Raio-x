@@ -22,8 +22,15 @@ const IMG_W = 1 / LENS.r // largura da imagem = IMG_W · raio
 const OFF_X = LENS.cx / LENS.r // recuo horizontal até o centro do vidro
 const OFF_Y = (LENS.cy * LENS.aspect) / LENS.r // recuo vertical até o centro do vidro
 
+/**
+ * Giro da lupa em torno do centro óptico. O cabo do PNG sai a ~35° abaixo da
+ * horizontal; endireitá-lo manda o cabo para a área vazia à direita da linha
+ * examinada, em vez de deitar sobre a lista.
+ */
+const HANDLE = -30
+
 /** Raio do vidro em px, por viewport. A lupa cruza o conteúdo — não a viewport. */
-const RADIUS = { desktop: 120, mobile: 80 } as const
+const RADIUS = { desktop: 94, mobile: 62 } as const
 
 export default function SymptomCause() {
   const root = useSection<HTMLElement>(({ root, mm }) => {
@@ -92,19 +99,27 @@ export default function SymptomCause() {
 
       tl.fromTo('[data-sc-b]', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.08 }, 0.04)
 
-      // A lupa examina a composição: desce até a lista, volta para a linha que
-      // troca, se afasta e volta. Sem zoom de câmera — só a peça se move.
-      // Fora do ponto de leitura ela nunca estaciona em cima da linha pela metade.
-      const away = clamp({ x: read.x + (isDesktop ? 0.16 : 0.22), y: read.y + 0.3 })
-      const path = [away, clamp(read), clamp(read), away, clamp(read)]
+      // Percurso curto: a lupa orbita a linha que troca em vez de varrer a
+      // composição inteira. Sem zoom de câmera — só a peça se move. O ponto de
+      // descanso fica longe o bastante para a linha sair inteira da lente,
+      // então nunca se lê meia palavra.
+      // O descanso é um deslize LATERAL, na mesma faixa da linha: ali não há
+      // linha 1 acima nem lista abaixo dentro do raio do vidro. Percorrer para
+      // baixo colocaria a lista dentro da lente — que é o ruído a evitar.
+      const away = clamp({ x: read.x + (isDesktop ? 0.2 : 0.3), y: read.y })
+      // Transições curtas, leituras longas. Enquanto a lente cruza a borda da
+      // palavra existe meia troca; concentrando o percurso em três deslizes
+      // rápidos, a cena passa quase todo o tempo parada numa leitura inteira.
+      const R = clamp(read)
+      const STOPS = [
+        { p: R, at: 0.12, d: 0.05 }, // entra na linha: aparece a CAUSA
+        { p: away, at: 0.46, d: 0.05 }, // recua: volta o SINTOMA
+        { p: R, at: 0.63, d: 0.05 }, // revela de novo e fica
+      ]
 
-      gsap.set(sceneEl, { '--lx': path[0].x, '--ly': path[0].y })
-      path.slice(1).forEach((p, i) => {
-        tl.to(
-          sceneEl,
-          { '--lx': p.x, '--ly': p.y, ease: 'power2.inOut', duration: 0.14 },
-          0.1 + i * 0.21,
-        )
+      gsap.set(sceneEl, { '--lx': away.x, '--ly': away.y })
+      STOPS.forEach((st) => {
+        tl.to(sceneEl, { '--lx': st.p.x, '--ly': st.p.y, ease: 'power2.inOut', duration: st.d }, st.at)
       })
 
       tl.fromTo('[data-sc-note]', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.08 }, 0.22)
@@ -171,9 +186,13 @@ export default function SymptomCause() {
           className="absolute left-0 top-0 z-30 max-w-none will-change-transform"
           style={{
             width: `calc(var(--lr) * ${IMG_W})`,
+            // A rotação acontece em torno do centro do vidro, então o vidro não
+            // sai do lugar: só o cabo gira para a faixa vazia à direita, em vez
+            // de atravessar a lista. Nenhuma alteração na peça, só transform.
+            transformOrigin: `${LENS.cx * 100}% ${LENS.cy * 100}%`,
             transform:
               `translate3d(calc(var(--sw) * var(--lx) - var(--lr) * ${OFF_X}),` +
-              ` calc(var(--sh) * var(--ly) - var(--lr) * ${OFF_Y}), 0)`,
+              ` calc(var(--sh) * var(--ly) - var(--lr) * ${OFF_Y}), 0) rotate(${HANDLE}deg)`,
           }}
         />
       </div>
@@ -199,12 +218,16 @@ function Layer({ variant }: { variant: 'sintoma' | 'causa' }) {
           <span className="block text-d4 text-rx-silver/55">VOCÊ ESTÁ TRATANDO</span>
           {/* linha 2 — a única coisa que a lente troca. Dimensionada para caber
               inteira dentro do vidro, senão a leitura vira palavra híbrida. */}
+          {/* A linha que troca fica isolada: o respiro acima tira a linha 1 de
+              dentro do vidro, para a lente revelar UMA mensagem por vez. */}
           {causa ? (
-            <span className="block text-[clamp(1.1rem,2.05vw,1.7rem)] rx-accent">NÃO A CAUSA.</span>
+            <span className="mt-[5.5rem] block text-[clamp(0.9rem,1.65vw,1.35rem)] rx-accent md:mt-[9rem]">
+              NÃO A CAUSA.
+            </span>
           ) : (
             <span
               data-sc-swap=""
-              className="block text-[clamp(1.1rem,2.05vw,1.7rem)] text-white"
+              className="mt-[5.5rem] block text-[clamp(0.9rem,1.65vw,1.35rem)] text-white md:mt-[9rem]"
             >
               O SINTOMA.
             </span>
@@ -212,7 +235,7 @@ function Layer({ variant }: { variant: 'sintoma' | 'causa' }) {
         </h2>
 
         {/* daqui para baixo, tudo igual nas duas camadas */}
-        <ul data-sc-b={causa ? undefined : ''} className="mt-10 space-y-5 md:mt-14 md:space-y-7">
+        <ul data-sc-b={causa ? undefined : ''} className="mt-[6rem] space-y-5 md:mt-[9rem] md:space-y-7">
           {LINHAS.map((l) => (
             <li key={l.sintoma} className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
               <span className="text-[clamp(0.95rem,1.7vw,1.25rem)] text-rx-silver/70">

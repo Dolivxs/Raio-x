@@ -37,7 +37,7 @@ export default function FinalCTA() {
         <h2
           data-fc-el=""
           data-anim="hidden"
-          className="rx-display mt-14 text-[clamp(1.5rem,4.6vw,3.2rem)] text-white"
+          className="rx-display mt-14 text-[clamp(1.7rem,5.2vw,3.6rem)] text-white"
         >
           Pronto para parar
           <br />
@@ -50,7 +50,7 @@ export default function FinalCTA() {
         </p>
 
         <div data-fc-el="" data-anim="hidden" className="mt-14">
-          <Cta />
+          <Cta size="xl" />
           {ctaIsPlaceholder && (
             <p className="rx-eyebrow mt-5 text-rx-silver/35">
               WHATSAPP A DEFINIR — AJUSTAR EM src/lib/event.ts

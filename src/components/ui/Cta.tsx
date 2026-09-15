@@ -2,11 +2,16 @@
 
 import { ctaHref, ctaIsPlaceholder, eventData } from '@/lib/event'
 
-type Props = { size?: 'sm' | 'lg'; className?: string }
+type Props = { size?: 'sm' | 'lg' | 'xl'; className?: string }
 
 export default function Cta({ size = 'lg', className = '' }: Props) {
   const href = ctaHref()
-  const pad = size === 'lg' ? 'px-9 py-4 text-sm md:px-12 md:py-5 md:text-base' : 'px-5 py-2.5 text-xs'
+  const pad =
+    size === 'xl'
+      ? 'px-10 py-[1.15rem] text-[0.9rem] md:px-[3.4rem] md:py-[1.45rem] md:text-[1.05rem]'
+      : size === 'lg'
+        ? 'px-9 py-4 text-sm md:px-12 md:py-5 md:text-base'
+        : 'px-5 py-2.5 text-xs'
 
   return (
     <a

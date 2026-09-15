@@ -60,8 +60,8 @@ export default function Diagnosis() {
         <Gear
           tone="gold"
           spin={118}
-          className="absolute -right-[34%] -top-[14%] w-[86vw] max-w-[780px] opacity-90
-            md:-right-[13%] md:-top-[18%] md:w-[42vw]"
+          className="absolute -right-[42%] -top-[18%] w-[92vw] max-w-[820px] opacity-85
+            md:-right-[25%] md:-top-[24%] md:w-[46vw]"
         />
 
         <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
