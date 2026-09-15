@@ -78,7 +78,7 @@ export default function Hero() {
         data-anim="hidden"
         data-hero-detail=""
         data-hero-chain=""
-        className="absolute -top-[18%] right-[6%] z-20 h-[150%] w-[34px] rotate-[15deg] opacity-0 md:left-[12%] md:right-auto md:w-[54px]"
+        className="absolute -top-[18%] right-[6%] z-20 h-[150%] w-[34px] rotate-[15deg] opacity-0 md:-left-[2%] md:right-auto md:w-[54px]"
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-between px-5 pb-16 pt-24 md:px-10 md:pb-20 md:pt-28">
