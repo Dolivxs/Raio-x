@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 380" width="380" height="380" fill="none">
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%"  stop-color="#EEF3F8"/>
+      <stop offset="28%" stop-color="#A9B6C4"/>
+      <stop offset="52%" stop-color="#5A6D82"/>
+      <stop offset="74%" stop-color="#C6CED8"/>
+      <stop offset="100%" stop-color="#6C7C90"/>
+    </linearGradient>
+    <linearGradient id="steelDark" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%"  stop-color="#20374F"/>
+      <stop offset="45%" stop-color="#102040"/>
+      <stop offset="100%" stop-color="#0A1A2C"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%"  stop-color="#F2DFA0"/>
+      <stop offset="35%" stop-color="#C9A227"/>
+      <stop offset="70%" stop-color="#8A6E15"/>
+      <stop offset="100%" stop-color="#E4CE84"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <path d="M 340.88 171.54 L 375.08 169.57 L 375.08 210.43 L 340.88 208.46 L 336.45 230.68 L 368.81 241.95 L 353.17 279.70 L 322.33 264.79 L 309.74 283.63 L 335.32 306.42 L 306.42 335.32 L 283.63 309.74 L 264.79 322.33 L 279.70 353.17 L 241.95 368.81 L 230.68 336.45 L 208.46 340.88 L 210.43 375.08 L 169.57 375.08 L 171.54 340.88 L 149.32 336.45 L 138.05 368.81 L 100.30 353.17 L 115.21 322.33 L 96.37 309.74 L 73.58 335.32 L 44.68 306.42 L 70.26 283.63 L 57.67 264.79 L 26.83 279.70 L 11.19 241.95 L 43.55 230.68 L 39.12 208.46 L 4.92 210.43 L 4.92 169.57 L 39.12 171.54 L 43.55 149.32 L 11.19 138.05 L 26.83 100.30 L 57.67 115.21 L 70.26 96.37 L 44.68 73.58 L 73.58 44.68 L 96.37 70.26 L 115.21 57.67 L 100.30 26.83 L 138.05 11.19 L 149.32 43.55 L 171.54 39.12 L 169.57 4.92 L 210.43 4.92 L 208.46 39.12 L 230.68 43.55 L 241.95 11.19 L 279.70 26.83 L 264.79 57.67 L 283.63 70.26 L 306.42 44.68 L 335.32 73.58 L 309.74 96.37 L 322.33 115.21 L 353.17 100.30 L 368.81 138.05 L 336.45 149.32 Z" fill="url(#steelDark)" stroke="#0A1A2C" stroke-width="3.42"/>
+    <circle cx="190.0" cy="190.0" r="152.00" fill="url(#steelDark)"/>
+    <circle cx="190.0" cy="190.0" r="110.20" fill="#0A1A2C" opacity="0.92"/>
+    <path d="M 245.86 200.93 L 302.40 200.93 L 302.40 179.07 L 245.86 179.07 Z" fill="url(#steelDark)" opacity="0.95"/><path d="M 208.47 243.84 L 236.74 292.81 L 255.66 281.88 L 227.39 232.91 Z" fill="url(#steelDark)" opacity="0.95"/><path d="M 152.61 232.91 L 124.34 281.88 L 143.26 292.81 L 171.53 243.84 Z" fill="url(#steelDark)" opacity="0.95"/><path d="M 134.14 179.07 L 77.60 179.07 L 77.60 200.93 L 134.14 200.93 Z" fill="url(#steelDark)" opacity="0.95"/><path d="M 171.53 136.16 L 143.26 87.19 L 124.34 98.12 L 152.61 147.09 Z" fill="url(#steelDark)" opacity="0.95"/><path d="M 227.39 147.09 L 255.66 98.12 L 236.74 87.19 L 208.47 136.16 Z" fill="url(#steelDark)" opacity="0.95"/>
+    <circle cx="190.0" cy="190.0" r="41.80" fill="url(#metal)"/>
+    <circle cx="190.0" cy="190.0" r="18.05" fill="#050D18"/>
+    <circle cx="190.0" cy="190.0" r="110.20" fill="none" stroke="url(#metal)" stroke-width="4.18" opacity="0.55"/>
+  </g>
+</svg>

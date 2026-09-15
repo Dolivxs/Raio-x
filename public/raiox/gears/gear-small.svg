@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" fill="none">
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%"  stop-color="#EEF3F8"/>
+      <stop offset="28%" stop-color="#A9B6C4"/>
+      <stop offset="52%" stop-color="#5A6D82"/>
+      <stop offset="74%" stop-color="#C6CED8"/>
+      <stop offset="100%" stop-color="#6C7C90"/>
+    </linearGradient>
+    <linearGradient id="steelDark" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%"  stop-color="#20374F"/>
+      <stop offset="45%" stop-color="#102040"/>
+      <stop offset="100%" stop-color="#0A1A2C"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%"  stop-color="#F2DFA0"/>
+      <stop offset="35%" stop-color="#C9A227"/>
+      <stop offset="70%" stop-color="#8A6E15"/>
+      <stop offset="100%" stop-color="#E4CE84"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <path d="M 214.74 104.49 L 236.25 102.21 L 236.25 137.79 L 214.74 135.51 L 209.80 153.93 L 229.57 162.72 L 211.78 193.53 L 194.29 180.80 L 180.80 194.29 L 193.53 211.78 L 162.72 229.57 L 153.93 209.80 L 135.51 214.74 L 137.79 236.25 L 102.21 236.25 L 104.49 214.74 L 86.07 209.80 L 77.28 229.57 L 46.47 211.78 L 59.20 194.29 L 45.71 180.80 L 28.22 193.53 L 10.43 162.72 L 30.20 153.93 L 25.26 135.51 L 3.75 137.79 L 3.75 102.21 L 25.26 104.49 L 30.20 86.07 L 10.43 77.28 L 28.22 46.47 L 45.71 59.20 L 59.20 45.71 L 46.47 28.22 L 77.28 10.43 L 86.07 30.20 L 104.49 25.26 L 102.21 3.75 L 137.79 3.75 L 135.51 25.26 L 153.93 30.20 L 162.72 10.43 L 193.53 28.22 L 180.80 45.71 L 194.29 59.20 L 211.78 46.47 L 229.57 77.28 L 209.80 86.07 Z" fill="url(#gold)" stroke="#0A1A2C" stroke-width="2.16"/>
+    <circle cx="120.0" cy="120.0" r="96.00" fill="url(#gold)"/>
+    <circle cx="120.0" cy="120.0" r="69.60" fill="#0A1A2C" opacity="0.92"/>
+    <path d="M 155.28 126.90 L 190.99 126.90 L 190.99 113.10 L 155.28 113.10 Z" fill="url(#gold)" opacity="0.95"/><path d="M 124.34 155.69 L 135.38 189.65 L 148.50 185.39 L 137.46 151.42 Z" fill="url(#gold)" opacity="0.95"/><path d="M 87.40 135.15 L 58.51 156.15 L 66.62 167.31 L 95.51 146.32 Z" fill="url(#gold)" opacity="0.95"/><path d="M 95.51 93.68 L 66.62 72.69 L 58.51 83.85 L 87.40 104.85 Z" fill="url(#gold)" opacity="0.95"/><path d="M 137.46 88.58 L 148.50 54.61 L 135.38 50.35 L 124.34 84.31 Z" fill="url(#gold)" opacity="0.95"/>
+    <circle cx="120.0" cy="120.0" r="26.40" fill="url(#steelDark)"/>
+    <circle cx="120.0" cy="120.0" r="11.40" fill="#050D18"/>
+    <circle cx="120.0" cy="120.0" r="69.60" fill="none" stroke="url(#metal)" stroke-width="2.64" opacity="0.55"/>
+  </g>
+</svg>

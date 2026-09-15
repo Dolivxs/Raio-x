@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 560" width="560" height="560" fill="none">
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%"  stop-color="#EEF3F8"/>
+      <stop offset="28%" stop-color="#A9B6C4"/>
+      <stop offset="52%" stop-color="#5A6D82"/>
+      <stop offset="74%" stop-color="#C6CED8"/>
+      <stop offset="100%" stop-color="#6C7C90"/>
+    </linearGradient>
+    <linearGradient id="steelDark" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%"  stop-color="#20374F"/>
+      <stop offset="45%" stop-color="#102040"/>
+      <stop offset="100%" stop-color="#0A1A2C"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%"  stop-color="#F2DFA0"/>
+      <stop offset="35%" stop-color="#C9A227"/>
+      <stop offset="70%" stop-color="#8A6E15"/>
+      <stop offset="100%" stop-color="#E4CE84"/>
+    </linearGradient>
+  </defs>
+  <g transform="rotate(38 280.0 280.0)">
+    <rect x="263.9" y="443.2" width="32.2" height="224.0" rx="16.1" fill="url(#steelDark)" stroke="url(#metal)" stroke-width="2.5"/>
+    <rect x="256.8" y="434.8" width="46.4" height="36.4" rx="8.4" fill="url(#gold)"/>
+    <rect x="260.0" y="639.2" width="39.9" height="25.2" rx="8.4" fill="url(#gold)" opacity="0.9"/>
+  </g>
+  <circle cx="280.0" cy="280.0" r="173.6" fill="#0A1A2C" opacity="0.18"/>
+  <circle cx="280.0" cy="280.0" r="173.6" fill="none" stroke="url(#metal)" stroke-width="23.8"/>
+  <circle cx="280.0" cy="280.0" r="183.1" fill="none" stroke="url(#gold)" stroke-width="6.7" opacity="0.9"/>
+  <circle cx="280.0" cy="280.0" r="164.1" fill="none" stroke="#050D18" stroke-width="5.6" opacity="0.75"/>
+</svg>

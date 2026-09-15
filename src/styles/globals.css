@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- RAIO X — paleta oficial (amostrada do PDF) ---- */
+  --color-rx-navy-950: #050d18;
+  --color-rx-navy-900: #0a1a2c;
+  --color-rx-navy-800: #102040;
+  --color-rx-navy-700: #103050;
+  --color-rx-blue-600: #10557f;
+  --color-rx-cyan-500: #10c0e0;
+  --color-rx-cyan-300: #7fdbff;
+  --color-rx-silver: #c6ced8;
+  --color-rx-gold-500: #c9a227;
+
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* escala display — clamp, nunca tamanho fixo por breakpoint */
+  --text-d1: clamp(2.75rem, 11vw, 9rem);
+  --text-d2: clamp(2.25rem, 8vw, 6.5rem);
+  --text-d3: clamp(1.75rem, 5.5vw, 4rem);
+  --text-d4: clamp(1.375rem, 3.4vw, 2.25rem);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-rx-navy-950);
+  /* Lenis controla o scroll; scroll-behavior nativo brigaria com ele */
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--color-rx-navy-950);
+  color: var(--color-rx-silver);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Sem overflow horizontal em nenhum breakpoint */
+html,
+body {
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--color-rx-cyan-500);
+  color: var(--color-rx-navy-950);
+}
+
+/* ---------- utilitários de tipografia ---------- */
+
+.rx-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.rx-eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(0.625rem, 1.1vw, 0.75rem);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.rx-body {
+  font-size: clamp(1rem, 1.35vw, 1.1875rem);
+  line-height: 1.62;
+  max-width: 60ch;
+}
+
+/* Título em duas camadas — assinatura da marca (branco + ciano) */
+.rx-accent {
+  color: var(--color-rx-cyan-500);
+}
+
+.rx-metal {
+  background: linear-gradient(168deg, #ffffff 6%, #c6ced8 34%, #7d8b9c 56%, #eef3f8 78%, #98a6b6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- atmosfera ---------- */
+
+.rx-vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 85% at 50% 45%, transparent 38%, rgba(5, 13, 24, 0.72) 100%);
+}
+
+/* Névoa fria — gradiente estático, nunca filter animado */
+.rx-haze {
+  background:
+    radial-gradient(85% 60% at 18% 12%, rgba(16, 192, 224, 0.13), transparent 62%),
+    radial-gradient(70% 55% at 88% 78%, rgba(16, 85, 127, 0.2), transparent 60%);
+}
+
+.rx-hairline {
+  background: linear-gradient(90deg, transparent, rgba(198, 206, 216, 0.28), transparent);
+}
+
+/* ---------- estado inicial das animações ----------
+   Elementos entram por GSAP. Marcamos o estado inicial em CSS para
+   evitar flash de conteúdo posicionado errado no primeiro paint.     */
+[data-anim="hidden"] {
+  opacity: 0;
+}
+
+/* ---------- acessibilidade de movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  [data-anim="hidden"] {
+    opacity: 1;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
