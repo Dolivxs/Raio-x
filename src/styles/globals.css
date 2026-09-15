@@ -24,15 +24,6 @@
 
 :root {
   color-scheme: dark;
-
-  /* Posição da lupa oficial. Vivem aqui porque são lidas por DOIS lugares:
-     a camada persistente (que desenha a lupa) e a cena SymptomCause
-     (que desenha o círculo de revelação sob ela). */
-  --lr: 250px;
-  --lx: 0.3;
-  --ly: 0.45;
-  --sw: 100vw;
-  --sh: 100svh;
 }
 
 html {

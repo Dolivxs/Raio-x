@@ -1,15 +1,14 @@
 type Props = {
-  /** Caminho em /raiox/… — SEMPRE o arquivo oficial, nunca uma variante. */
   src: string
   className?: string
-} & React.ImgHTMLAttributes<HTMLImageElement>
+} & Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt'>
 
 /**
- * Asset oficial do projeto.
+ * Invólucro fino para um asset oficial.
  *
- * Regra: a imagem nunca é reestilizada. Sem filter, sem glow, sem mix-blend,
- * sem tint. Só transform e opacity — que é o que o GSAP anima.
- * Qualquer iluminação vem da composição ao redor, nunca do próprio asset.
+ * Regra: a peça entra na tela exatamente como foi entregue. O componente não
+ * aplica filter, glow, mix-blend nem tint — profundidade e clima se resolvem
+ * na composição em volta (escala, posição, opacidade e a Atmosphere da cena).
  */
 export default function OfficialAsset({ src, className = '', ...rest }: Props) {
   return (
@@ -19,8 +18,9 @@ export default function OfficialAsset({ src, className = '', ...rest }: Props) {
       alt=""
       aria-hidden
       draggable={false}
+      loading="lazy"
       decoding="async"
-      className={`pointer-events-none max-w-none select-none ${className}`}
+      className={`pointer-events-none select-none ${className}`}
       {...rest}
     />
   )

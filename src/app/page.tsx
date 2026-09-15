@@ -1,6 +1,4 @@
 import SmoothScroll from '@/components/motion/SmoothScroll'
-import GlobalAtmosphere from '@/components/stage/GlobalAtmosphere'
-import MechanicalWorld from '@/components/stage/MechanicalWorld'
 import DiagnosticProgress from '@/components/ui/DiagnosticProgress'
 import Header from '@/components/ui/Header'
 
@@ -21,16 +19,10 @@ export default function Page() {
   return (
     <>
       <SmoothScroll />
-
-      {/* Background contínuo e camada mecânica persistente vivem FORA das
-          seções — é isso que faz a landing ser uma experiência só. */}
-      <GlobalAtmosphere />
-      <MechanicalWorld />
-
       <Header />
       <DiagnosticProgress />
 
-      <main className="relative z-10">
+      <main>
         {/* travado → diagnosticado → destravado */}
         <Hero />
         <Overwork />

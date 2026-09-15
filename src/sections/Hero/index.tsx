@@ -1,5 +1,7 @@
 'use client'
 
+import Atmosphere from '@/components/art/Atmosphere'
+import Chain from '@/components/art/Chain'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { eventData } from '@/lib/event'
 import { gsap } from '@/lib/motion'
@@ -10,9 +12,7 @@ export default function Hero() {
     mm.add(MQ.motion, () => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
       tl.set('[data-anim="hidden"]', { opacity: 0 })
-        .to('[data-hero-bg]', { opacity: 1, duration: 1.2 }, 0)
-        .to('[data-hero-mg]', { opacity: 1, duration: 1.0 }, 0.12)
-        .to('[data-hero-fg]', { opacity: 1, duration: 0.9 }, 0.2)
+        .to('[data-hero-fg]', { opacity: 1, duration: 0.9 }, 0.18)
         .to('[data-hero-detail]', { opacity: 1, duration: 0.8, stagger: 0.1 }, 0.15)
         .fromTo(
           '[data-hero-mark]',
@@ -42,27 +42,29 @@ export default function Hero() {
         .to('[data-hero-mark]', { yPercent: -32, scale: 0.92, opacity: 0.12, ease: 'none' }, 0)
         .to('[data-hero-head]', { yPercent: -58, opacity: 0, ease: 'none' }, 0)
         .to('[data-hero-cue]', { opacity: 0, ease: 'none', duration: 0.3 }, 0)
-        .to('[data-hero-bg]', { rotate: 26 * k, yPercent: -7 * k, ease: 'none' }, 0)
-        .to('[data-hero-mg]', { rotate: -58 * k, xPercent: -9 * k, yPercent: -16 * k, ease: 'none' }, 0)
-        .to('[data-hero-fg]', { yPercent: 34 * k, ease: 'none' }, 0)
-        .to('[data-hero-edge]', { yPercent: -26 * k, rotate: 30 * k, ease: 'none' }, 0)
+        // corrente: parallax de primeiro plano, sem giro
+        .to('[data-hero-fg]', { yPercent: 26 * k, xPercent: -3 * k, ease: 'none' }, 0)
     })
   })
 
   return (
     <section
       ref={root}
-      id="sec-hero"
+      id="topo"
       className="relative isolate flex h-[100svh] min-h-[600px] w-full flex-col overflow-hidden"
     >
+      <Atmosphere tone="hero" grid vignette={1.0} />
 
-      {/* ---------- BACKGROUND: fundo do mecanismo, fora de foco ---------- */}
-
-      {/* ---------- MIDGROUND: peça de aço cortada pela borda esquerda ---------- */}
-
-      {/* ---------- peça entrando pela borda inferior direita ---------- */}
-
-      {/* ---------- FOREGROUND: corrente colada na câmera, levemente desfocada ---------- */}
+      {/* Objeto único do hero: a marca é a protagonista e o topo fica limpo.
+          A corrente ocupa a faixa vazia à direita — entre a linha de crédito e
+          a headline do rodapé — e sai pela borda. Não cruza texto nenhum. */}
+      <Chain
+        data-anim="hidden"
+        data-hero-fg=""
+        className="absolute -right-[26%] top-[56%] w-[86vw] max-w-none rotate-[58deg] opacity-0
+          md:-right-[8%] md:top-[28%] md:w-[32vw] md:rotate-[62deg]"
+        style={{ opacity: 0 }}
+      />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-between px-5 pb-16 pt-24 md:px-10 md:pb-20 md:pt-28">
         <div className="flex items-start justify-between gap-6">

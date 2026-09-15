@@ -1,5 +1,7 @@
 'use client'
 
+import Atmosphere from '@/components/art/Atmosphere'
+import Gear from '@/components/art/Gear'
 import Wordmark from '@/components/ui/Wordmark'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap, reveal } from '@/lib/motion'
@@ -19,24 +21,15 @@ export default function Product() {
       reveal('[data-pd-pos]', { trigger: root, y: 26, stagger: 0.12, start: 'top 58%' })
       reveal('[data-pd-body] > p', { trigger: root, y: 24, stagger: 0.12, start: 'top 52%' })
 
+      // A seção respira: a peça é só uma presença de fundo, girando devagar.
       gsap.fromTo(
         '[data-pd-bg]',
-        { rotate: -16, y: 40 },
+        { rotate: -10, y: 30 },
         {
-          rotate: 16,
-          y: -40,
+          rotate: 10,
+          y: -30,
           ease: 'none',
           scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: 1.4 },
-        },
-      )
-
-      gsap.fromTo(
-        '[data-rope-path]',
-        { strokeDashoffset: 1 },
-        {
-          strokeDashoffset: 0,
-          ease: 'none',
-          scrollTrigger: { trigger: root, start: 'top 85%', end: 'center center', scrub: 1 },
         },
       )
     })
@@ -45,11 +38,20 @@ export default function Product() {
   return (
     <section
       ref={root}
-      id="sec-product"
       className="relative w-full overflow-hidden py-[11vh] md:py-[14vh]"
     >
+      <Atmosphere tone="product" vignette={0.6} />
 
-      {/* mecanismo enorme, no limite do visível — só profundidade, sem competir */}
+      {/* Única peça da cena, no limite do visível: o claim é o protagonista.
+          "TEM EXAME. TEM LAUDO. TEM PRESCRIÇÃO." não divide atenção com nada. */}
+      {/* Centrada por margin auto: o GSAP anima o transform e apagaria o
+          -translate-x-1/2 do Tailwind. */}
+      <Gear
+        tone="silver"
+        data-pd-bg=""
+        className="absolute inset-x-0 top-[28%] mx-auto w-[140vw] max-w-[1400px] opacity-[0.05]
+          md:w-[78vw]"
+      />
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
         <div data-pd-mark="" data-anim="hidden" className="flex justify-center">

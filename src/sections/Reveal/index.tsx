@@ -1,6 +1,8 @@
 'use client'
 
+import Atmosphere from '@/components/art/Atmosphere'
 import Fracture from '@/components/art/Fracture'
+import Gear from '@/components/art/Gear'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
 
@@ -61,7 +63,7 @@ export default function Reveal() {
       // A fratura se propaga ao longo de toda a revelação.
       tl.fromTo('[data-crack]', { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: 'none', stagger: 0.02, duration: 0.75 }, 0.14)
       tl.fromTo('[data-rv-fracture]', { yPercent: -8, rotate: -3 }, { yPercent: 8, rotate: 3, ease: 'none', duration: 1 }, 0)
-      tl.fromTo('[data-rv-bg]', { rotate: -14 }, { rotate: 14, ease: 'none', duration: 1 }, 0)
+      tl.fromTo('[data-rv-bg]', { rotate: -9 }, { rotate: 9, ease: 'none', duration: 1 }, 0)
 
       // Cada descoberta ocupa a cena e sai. Não é lista: é uma de cada vez.
       const start = 0.18
@@ -86,11 +88,18 @@ export default function Reveal() {
   })
 
   return (
-    <section ref={root}
-      id="sec-reveal" className="relative h-[195vh] w-full md:h-[220vh]">
+    <section ref={root} className="relative h-[195vh] w-full md:h-[220vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
+        <Atmosphere tone="reveal" vignette={0.95} />
 
-        {/* fundo: mecanismo submerso, fora de foco */}
+        {/* As revelações são as protagonistas. Do mecanismo fica só a
+            assinatura: uma peça submersa no canto, girando devagar. */}
+        <Gear
+          tone="silver"
+          data-rv-bg=""
+          className="absolute -left-[36%] top-[10%] w-[96vw] max-w-[900px] opacity-[0.10]
+            md:-left-[18%] md:w-[44vw]"
+        />
 
         {/* a fratura silenciosa, se propagando à direita */}
         <Fracture

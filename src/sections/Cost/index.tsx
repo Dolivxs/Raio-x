@@ -1,5 +1,7 @@
 'use client'
 
+import Atmosphere from '@/components/art/Atmosphere'
+import Gear from '@/components/art/Gear'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap, parallax, reveal } from '@/lib/motion'
 
@@ -13,7 +15,6 @@ export default function Cost() {
   const root = useSection<HTMLElement>(({ root, mm }) => {
     mm.add(MQ.reduced, () => {
       gsap.set('[data-anim="hidden"]', { opacity: 1, y: 0 })
-      gsap.set('[data-rope-path]', { strokeDashoffset: 0 })
     })
 
     mm.add(MQ.motion, () => {
@@ -23,17 +24,7 @@ export default function Cost() {
       reveal('[data-ct-close]', { trigger: root, y: 24, start: 'top 46%' })
 
       // mecanismo distante — quase só atmosfera
-      parallax('[data-ct-gear]', 'background', 300, root)
-
-      gsap.fromTo(
-        '[data-rope-path]',
-        { strokeDashoffset: 1 },
-        {
-          strokeDashoffset: 0,
-          ease: 'none',
-          scrollTrigger: { trigger: root, start: 'top 80%', end: 'bottom center', scrub: 1 },
-        },
-      )
+      parallax('[data-ct-gear]', 'background', 260, root)
     })
   })
 
@@ -41,9 +32,17 @@ export default function Cost() {
     // A seção do custo respira: muito espaço negativo, poucos elementos.
     <section
       ref={root}
-      id="sec-cost"
       className="relative w-full overflow-hidden py-[13vh] md:py-[16vh]"
     >
+      <Atmosphere tone="cost" vignette={1.2} />
+      {/* Perto do fim a página vai ficando mais limpa: sobra uma peça só,
+          distante, fora da coluna de texto (max-w-[1100px] centralizada). */}
+      <Gear
+        tone="silver"
+        data-ct-gear=""
+        className="absolute -right-[34%] top-[16%] w-[84vw] max-w-[720px] opacity-[0.12]
+          md:-right-[16%] md:w-[30vw]"
+      />
 
       <div className="relative z-10 mx-auto w-full max-w-[1100px] px-5 md:px-10">
         <div data-ct-head="" className="max-w-[18ch]">

@@ -1,5 +1,7 @@
 'use client'
 
+import Atmosphere from '@/components/art/Atmosphere'
+import Chain from '@/components/art/Chain'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap, parallax, reveal } from '@/lib/motion'
 
@@ -16,21 +18,9 @@ export default function Blockage() {
       if (!isMotion) return
       const k = isDesktop ? 1 : 0.45
 
-      // Três planos, três velocidades — é a diferença que cria a profundidade.
-      parallax('[data-bk-fg]', 'foreground', 620 * k, root)
-      parallax('[data-bk-fg2]', 'foreground', 430 * k, root)
-      parallax('[data-bk-mg]', 'middleground', 460 * k, root)
-      parallax('[data-bk-bg]', 'background', 460 * k, root)
-
-      gsap.fromTo(
-        '[data-bk-fg]',
-        { rotate: 14 },
-        {
-          rotate: 9,
-          ease: 'none',
-          scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: 1 },
-        },
-      )
+      // Dois planos, duas velocidades — a diferença é o que cria a profundidade.
+      parallax('[data-bk-fg]', 'foreground', 560 * k, root)
+      parallax('[data-bk-mg]', 'middleground', 380 * k, root)
 
       reveal('[data-bk-head] > *', { trigger: root, y: 30 * k, stagger: 0.12 })
       reveal('[data-bk-frente]', { trigger: root, y: 24 * k, stagger: 0.1, start: 'top 62%' })
@@ -41,16 +31,27 @@ export default function Blockage() {
   return (
     <section
       ref={root}
-      id="sec-blockage"
       className="relative w-full overflow-hidden pb-[10vh] pt-[14vh] md:pb-[12vh] md:pt-[18vh]"
     >
+      <Atmosphere tone="blockage" vignette={1.35} />
 
-      {/* background — engrenagem distante, quase submersa */}
+      {/* A corrente é o único objeto desta cena, em dois planos.
+          Vive na calha esquerda, fora da coluna de texto (md:w-[62%] à direita):
+          entra cortada pela borda e nunca cobre a copy.                      */}
 
-      {/* middleground — corrente afastada */}
+      {/* SECUNDÁRIO — corrente ao fundo, menor e mais apagada */}
+      <Chain
+        data-bk-mg=""
+        className="absolute hidden md:block md:-left-[10%] md:top-[46%] md:w-[34vw] md:opacity-45
+          md:max-w-none md:rotate-[54deg]"
+      />
 
-      {/* foreground — 3 ou 4 elos gigantes atravessando a câmera, fora de foco.
-          Não é para caber inteira: é para parecer perto demais.            */}
+      {/* DOMINANTE — corrente em primeiro plano, grande, saindo pela borda */}
+      <Chain
+        data-bk-fg=""
+        className="absolute -left-[58%] -top-[6%] z-20 w-[78vw] max-w-none rotate-[78deg] opacity-35
+          md:-left-[24%] md:-top-[10%] md:w-[70vw] md:rotate-[68deg] md:opacity-85"
+      />
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
         <div className="ml-auto w-full md:w-[62%]">

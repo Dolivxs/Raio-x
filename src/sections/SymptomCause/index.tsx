@@ -1,11 +1,10 @@
 'use client'
 
+import Atmosphere from '@/components/art/Atmosphere'
+import OfficialAsset from '@/components/art/OfficialAsset'
 import { MQ, useSection } from '@/components/motion/useSection'
+import { ASSET, LENS } from '@/lib/assets'
 import { gsap } from '@/lib/motion'
-
-/** Ampliação dentro da lente. O asset tem vidro semitransparente, então a
- *  camada de causa aparece através dele, maior — como uma lupa de verdade. */
-const MAG = 1.2
 
 const LINHAS = [
   { sintoma: 'A equipe não entrega?', reacao: 'Você cobra mais.' },
@@ -13,6 +12,18 @@ const LINHAS = [
   { sintoma: 'O resultado não chega?', reacao: 'Você trabalha mais.' },
 ]
 
+/**
+ * Conversão do raio do vidro (--lr) para a geometria do PNG oficial.
+ * O centro do vidro não é o centro da imagem, então a lupa é posicionada
+ * pelo seu próprio centro óptico — é isso que faz a peça parecer uma lente
+ * e não um adesivo por cima do texto.
+ */
+const IMG_W = 1 / LENS.r // largura da imagem = IMG_W · raio
+const OFF_X = LENS.cx / LENS.r // recuo horizontal até o centro do vidro
+const OFF_Y = (LENS.cy * LENS.aspect) / LENS.r // recuo vertical até o centro do vidro
+
+/** Raio do vidro em px, por viewport. A lupa cruza o conteúdo — não a viewport. */
+const RADIUS = { desktop: 120, mobile: 80 } as const
 
 export default function SymptomCause() {
   const root = useSection<HTMLElement>(({ root, mm }) => {
@@ -23,9 +34,8 @@ export default function SymptomCause() {
     // exato da cena, não 100vw (a barra de rolagem desalinharia as duas camadas).
     const sync = () => {
       const r = sceneEl.getBoundingClientRect()
-      const rootEl = document.documentElement
-      rootEl.style.setProperty('--sw', `${r.width}px`)
-      rootEl.style.setProperty('--sh', `${r.height}px`)
+      sceneEl.style.setProperty('--sw', `${r.width}px`)
+      sceneEl.style.setProperty('--sh', `${r.height}px`)
     }
     sync()
     const ro = new ResizeObserver(sync)
@@ -33,12 +43,41 @@ export default function SymptomCause() {
 
     mm.add({ isDesktop: MQ.desktop, isMotion: MQ.motion }, (ctx) => {
       const { isDesktop, isMotion } = ctx.conditions as Record<string, boolean>
-      const r = isDesktop ? 200 : 96
-      document.documentElement.style.setProperty('--lr', `${r}px`)
+      const r = isDesktop ? RADIUS.desktop : RADIUS.mobile
+      sceneEl.style.setProperty('--lr', `${r}px`)
+
+      // O ponto de leitura é MEDIDO na linha que troca, não chutado. É o que
+      // impede a palavra híbrida ("O SINTOMASA.") quando a lente para no meio.
+      // A medida é feita por Range: a linha é um bloco da largura da coluna e
+      // o texto fica alinhado à esquerda dentro dele — usar a caixa do elemento
+      // jogaria o vidro algumas centenas de px para a direita das palavras.
+      const scene = sceneEl.getBoundingClientRect()
+      const swapEl = sceneEl.querySelector<HTMLElement>('[data-sc-swap]')
+      let swap: DOMRect | undefined
+      if (swapEl) {
+        const range = document.createRange()
+        range.selectNodeContents(swapEl)
+        swap = range.getBoundingClientRect()
+        range.detach()
+      }
+      const read = swap
+        ? {
+            x: (swap.left + swap.width / 2 - scene.left) / scene.width,
+            y: (swap.top + swap.height / 2 - scene.top) / scene.height,
+          }
+        : { x: 0.2, y: 0.36 }
+
+      // Margem: o vidro inteiro precisa caber na tela nos dois eixos.
+      const mx = r / scene.width + 0.015
+      const my = r / scene.height + 0.015
+      const clamp = (p: { x: number; y: number }) => ({
+        x: gsap.utils.clamp(mx, 1 - mx, p.x),
+        y: gsap.utils.clamp(my, 1 - my, p.y),
+      })
 
       if (!isMotion) {
-        // Sem movimento: a lente descansa sobre a primeira linha e o texto fica legível.
-        gsap.set(document.documentElement, { '--lx': 0.38, '--ly': 0.52 })
+        const p = clamp(read)
+        gsap.set(sceneEl, { '--lx': p.x, '--ly': p.y })
         gsap.set('[data-sc-b], [data-sc-note]', { opacity: 1, y: 0 })
         return
       }
@@ -53,32 +92,16 @@ export default function SymptomCause() {
 
       tl.fromTo('[data-sc-b]', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.08 }, 0.04)
 
-      // A lupa varre a composição: desce pelas linhas e sobe para a virada final.
-      // A lupa varre a linha que troca. Fora dela não há nada para revelar.
-      // A lente ou está CENTRADA na linha que troca, ou claramente abaixo dela.
-      // Posição intermediária produz palavra híbrida ("O SINTOMASA."), então o
-      // percurso estaciona no ponto de leitura e se afasta por baixo — a linha
-      // fica acima do círculo, sem interseção.
-      const path = isDesktop
-        ? [
-            { x: 0.32, y: 0.74 },
-            { x: 0.19, y: 0.42 },
-            { x: 0.19, y: 0.42 },
-            { x: 0.34, y: 0.71 },
-            { x: 0.19, y: 0.42 },
-          ]
-        : [
-            { x: 0.56, y: 0.72 },
-            { x: 0.25, y: 0.38 },
-            { x: 0.25, y: 0.38 },
-            { x: 0.60, y: 0.69 },
-            { x: 0.25, y: 0.38 },
-          ]
+      // A lupa examina a composição: desce até a lista, volta para a linha que
+      // troca, se afasta e volta. Sem zoom de câmera — só a peça se move.
+      // Fora do ponto de leitura ela nunca estaciona em cima da linha pela metade.
+      const away = clamp({ x: read.x + (isDesktop ? 0.16 : 0.22), y: read.y + 0.3 })
+      const path = [away, clamp(read), clamp(read), away, clamp(read)]
 
-      gsap.set(document.documentElement, { '--lx': path[0].x, '--ly': path[0].y })
+      gsap.set(sceneEl, { '--lx': path[0].x, '--ly': path[0].y })
       path.slice(1).forEach((p, i) => {
         tl.to(
-          document.documentElement,
+          sceneEl,
           { '--lx': p.x, '--ly': p.y, ease: 'power2.inOut', duration: 0.14 },
           0.1 + i * 0.21,
         )
@@ -91,25 +114,34 @@ export default function SymptomCause() {
   })
 
   return (
-    <section ref={root}
-      id="sec-symptom" className="relative h-[195vh] w-full md:h-[220vh]">
+    <section ref={root} className="relative h-[195vh] w-full md:h-[220vh]">
       <div
         data-sc-scene=""
         className="sticky top-0 h-[100svh] w-full overflow-hidden"
+        style={
+          {
+            '--lr': `${RADIUS.desktop}px`,
+            '--lx': 0.3,
+            '--ly': 0.42,
+            '--sw': '100vw',
+            '--sh': '100svh',
+          } as React.CSSProperties
+        }
       >
+        <Atmosphere tone="symptom" grid vignette={1.45} />
 
         {/* ---------- camada SINTOMA (superfície) ---------- */}
         <div className="absolute inset-0">
           <Layer variant="sintoma" />
         </div>
 
-        {/* ---------- camada CAUSA, revelada dentro da lente ----------
+        {/* ---------- camada CAUSA, revelada dentro do vidro ----------
             Círculo transladado + conteúdo contra-transladado: só transform,
-            sem máscara animada, sem repaint de área grande.               */}
+            sem máscara animada, sem repaint de área grande. Fica ABAIXO da
+            lupa — o vidro do PNG oficial é translúcido, então a revelação
+            aparece através dele, com o aro e os reflexos por cima.        */}
         <div
           aria-hidden
-          // z-20: o circulo TEM de cobrir a camada base (Layer usa z-10). Sem
-          // isto as duas leituras se sobrepoem e a lente parece fora de registro.
           className="absolute left-0 top-0 z-20 overflow-hidden rounded-full will-change-transform"
           style={{
             width: 'calc(var(--lr) * 2)',
@@ -119,16 +151,12 @@ export default function SymptomCause() {
           }}
         >
           <div
-            className="absolute left-0 top-0 origin-top-left bg-rx-navy-950"
+            className="absolute left-0 top-0 bg-rx-navy-950"
             style={{
               width: 'var(--sw)',
               height: 'var(--sh)',
-              // AMPLIAÇÃO REAL: a camada revelada é escalada 1.2x em torno do
-              // centro óptico da lente. A contra-translação precisa considerar
-              // a escala, senão o conteúdo dentro da lente sai de registro.
               transform:
-                `translate3d(calc(var(--lr) - ${MAG} * var(--sw) * var(--lx)),` +
-                ` calc(var(--lr) - ${MAG} * var(--sh) * var(--ly)), 0) scale(${MAG})`,
+                'translate3d(calc(var(--lr) - var(--sw) * var(--lx)), calc(var(--lr) - var(--sh) * var(--ly)), 0)',
             }}
           >
             <div className="absolute inset-0 bg-rx-cyan-500/[0.10]" />
@@ -136,6 +164,18 @@ export default function SymptomCause() {
           </div>
         </div>
 
+        {/* LUPA OFICIAL — posicionada pelo centro do vidro, não pelo centro
+            da imagem. Só translate: escala e proporção da peça intactas. */}
+        <OfficialAsset
+          src={ASSET.magnifier}
+          className="absolute left-0 top-0 z-30 max-w-none will-change-transform"
+          style={{
+            width: `calc(var(--lr) * ${IMG_W})`,
+            transform:
+              `translate3d(calc(var(--sw) * var(--lx) - var(--lr) * ${OFF_X}),` +
+              ` calc(var(--sh) * var(--ly) - var(--lr) * ${OFF_Y}), 0)`,
+          }}
+        />
       </div>
     </section>
   )
@@ -151,16 +191,23 @@ function Layer({ variant }: { variant: 'sintoma' | 'causa' }) {
 
   return (
     <div className="relative z-10 mx-auto flex h-full w-full max-w-[1600px] flex-col justify-center px-5 md:px-10">
-      <div className="w-full max-w-[52rem]">
+      {/* A coluna examinada é recuada no desktop: a lupa precisa de espaço à
+          esquerda da linha que troca para caber inteira, com aro e tudo. */}
+      <div className="w-full max-w-[52rem] md:ml-[5rem] lg:ml-[9rem]">
         <h2 className="rx-display">
           {/* linha 1 — igual nas duas camadas */}
           <span className="block text-d4 text-rx-silver/55">VOCÊ ESTÁ TRATANDO</span>
           {/* linha 2 — a única coisa que a lente troca. Dimensionada para caber
-              inteira dentro da lente, senão a leitura vira palavra híbrida. */}
+              inteira dentro do vidro, senão a leitura vira palavra híbrida. */}
           {causa ? (
-            <span className="block text-[clamp(1.35rem,3.7vw,2.5rem)] rx-accent">NÃO A CAUSA.</span>
+            <span className="block text-[clamp(1.1rem,2.05vw,1.7rem)] rx-accent">NÃO A CAUSA.</span>
           ) : (
-            <span className="block text-[clamp(1.35rem,3.7vw,2.5rem)] text-white">O SINTOMA.</span>
+            <span
+              data-sc-swap=""
+              className="block text-[clamp(1.1rem,2.05vw,1.7rem)] text-white"
+            >
+              O SINTOMA.
+            </span>
           )}
         </h2>
 

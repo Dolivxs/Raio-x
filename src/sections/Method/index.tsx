@@ -1,5 +1,7 @@
 'use client'
 
+import Atmosphere from '@/components/art/Atmosphere'
+import Gear from '@/components/art/Gear'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
 import { STAGES } from './stages'
@@ -9,10 +11,9 @@ import { STAGES } from './stages'
  * A desordem inicial vive aqui, como deslocamento de onde cada peça parte.
  */
 const SCATTER = [
-  { x: -32, y: 20, r: -24, s: 1.14 },
-  { x: 38, y: -28, r: 31, s: 1.1 },
-  { x: -44, y: -34, r: 47, s: 1.18 },
-  { x: 24, y: 30, r: -19, s: 1.08 },
+  { x: -18, y: 22, r: -21, s: 1.12 },
+  { x: 34, y: -26, r: 27, s: 1.09 },
+  { x: -38, y: -30, r: 39, s: 1.15 },
 ]
 
 export default function Method() {
@@ -27,7 +28,6 @@ export default function Method() {
         gsap.set(slots, { x: 0, y: 0, rotate: 0, scale: 1 })
         gsap.set(panels, { opacity: 1, position: 'relative', y: 0 })
         gsap.set(rails, { opacity: 1 })
-        gsap.set('[data-mt-chain]', { opacity: 0 })
         return
       }
 
@@ -51,14 +51,16 @@ export default function Method() {
         )
       })
 
-      // 2) Rotação própria de cada engrenagem, proporcional e em sentidos opostos.
+      // 2) Cada engrenagem gira no seu próprio ritmo. Sentidos opostos porque
+      //    é assim que um mecanismo se lê — não há transmissão calculada por
+      //    raio: nenhuma peça é escrava da outra.
       gsap.utils.toArray<HTMLElement>('[data-gear]', root).forEach((g) => {
         const spin = Number(g.dataset.spin ?? 180)
         tl.fromTo(g, { rotate: 0 }, { rotate: spin, ease: 'none', duration: 1 }, 0)
       })
 
-      // 3) As correntes se soltam na primeira metade — o bloqueio cede.
-      tl.fromTo('[data-mt-chain]', { opacity: 0.8 }, { opacity: 0, ease: 'none', duration: 0.45 }, 0.05)
+      // 3) As peças se aproximam ao longo da cena: a composição vai fechando.
+      tl.fromTo('[data-mt-rig]', { xPercent: -6 * k }, { xPercent: 0, ease: 'power1.inOut', duration: 1 }, 0)
 
       // 4) Etapas: uma de cada vez, no mesmo espaço.
       const span = 1 / STAGES.length
@@ -82,12 +84,34 @@ export default function Method() {
   })
 
   return (
-    <section ref={root}
-      id="sec-method" className="relative h-[290vh] w-full md:h-[380vh]">
+    <section ref={root} className="relative h-[290vh] w-full md:h-[380vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
+        <Atmosphere tone="method" grid vignette={1.0} />
 
-        {/* ---------- mecanismo ---------- */}
-        <div aria-hidden className="absolute inset-0 opacity-30 md:opacity-100">
+        {/* ---------- mecanismo: as TRÊS engrenagens oficiais ----------
+            Composição lateral de apoio, na calha esquerda — a coluna de texto
+            ocupa md:w-[46%] à direita. Elas partem desencontradas e vão se
+            organizando ao longo das 6 etapas: mudam de posição, giram devagar
+            e se aproximam. Não há prova de física, há leitura.            */}
+        <div data-mt-rig="" aria-hidden className="absolute inset-0 opacity-[0.16] md:opacity-100">
+          <div
+            data-mt-slot=""
+            className="absolute -left-[16%] top-[22%] w-[60vw] max-w-[540px] md:left-[5%] md:top-[20%] md:w-[25vw] lg:left-[14%]"
+          >
+            <Gear tone="gold" spin={104} className="w-full" />
+          </div>
+          <div
+            data-mt-slot=""
+            className="absolute left-[22%] top-[56%] w-[40vw] max-w-[360px] md:left-[19%] md:top-[54%] md:w-[17vw]"
+          >
+            <Gear tone="silver" spin={-78} className="w-full" />
+          </div>
+          <div
+            data-mt-slot=""
+            className="absolute left-[50%] top-[30%] w-[24vw] max-w-[220px] opacity-60 md:left-[32%] md:top-[32%] md:w-[10vw]"
+          >
+            <Gear tone="teal" spin={52} className="w-full" />
+          </div>
         </div>
 
         {/* ---------- etapas ---------- */}

@@ -1,5 +1,7 @@
 'use client'
 
+import Atmosphere from '@/components/art/Atmosphere'
+import Gear from '@/components/art/Gear'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
 
@@ -37,19 +39,30 @@ export default function Diagnosis() {
   })
 
   return (
-    <section ref={root}
-      id="sec-diagnosis" className="relative h-[180vh] w-full md:h-[210vh]">
+    <section ref={root} className="relative h-[180vh] w-full md:h-[210vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
+        <Atmosphere tone="diagnosis" grid vignette={0.9} />
 
-        {/* ---------- mecanismo em três profundidades declaradas ----------
-            fundo: quase preto e fora de foco · meio: prata em foco ·
-            frente: pequena dourada, grande na tela e levemente desfocada. */}
+        {/* ---------- mecanismo: 1 peça principal + 1 distante ----------
+            A copy vive na coluna esquerda (md:ml-[6%], max-w-[46rem]); as duas
+            engrenagens ficam fora dela. Giram devagar, presas ao scroll: param
+            quando o scroll para e invertem quando o usuário volta.          */}
 
-        {/* BACKGROUND — quase submersa */}
+        {/* SECUNDÁRIA — distante, no rodapé à esquerda, quase só profundidade */}
+        <Gear
+          tone="teal"
+          spin={-34}
+          className="absolute -left-[26%] -bottom-[24%] w-[62vw] max-w-[420px] opacity-[0.18]
+            md:-left-[10%] md:-bottom-[22%] md:w-[22vw]"
+        />
 
-        {/* MIDGROUND — prata, nítida, é a peça que se lê */}
-
-        {/* FOREGROUND — dourada, colada na câmera, cortada pela borda */}
+        {/* PRINCIPAL — dourada, grande, cortada pela borda direita */}
+        <Gear
+          tone="gold"
+          spin={118}
+          className="absolute -right-[34%] -top-[14%] w-[86vw] max-w-[780px] opacity-90
+            md:-right-[13%] md:-top-[18%] md:w-[42vw]"
+        />
 
         <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
           <div className="relative w-full max-w-[46rem] md:ml-[6%]">
