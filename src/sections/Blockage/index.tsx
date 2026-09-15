@@ -1,8 +1,5 @@
 'use client'
 
-import Atmosphere from '@/components/art/Atmosphere'
-import Chain from '@/components/art/Chain'
-import Gear from '@/components/art/Gear'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap, parallax, reveal } from '@/lib/motion'
 
@@ -44,36 +41,16 @@ export default function Blockage() {
   return (
     <section
       ref={root}
+      id="sec-blockage"
       className="relative w-full overflow-hidden pb-[10vh] pt-[14vh] md:pb-[12vh] md:pt-[18vh]"
     >
-      <Atmosphere tone="blockage" vignette={1.35} />
 
       {/* background — engrenagem distante, quase submersa */}
-      <Gear
-        variant="ghost"
-        data-bk-bg=""
-        className="absolute -right-[24%] top-[8%] w-[70vw] max-w-[760px] opacity-70 md:-right-[8%] md:w-[38vw]"
-      />
 
       {/* middleground — corrente afastada */}
-      <Chain
-        data-bk-mg=""
-        className="absolute -top-[10%] right-[16%] h-[130%] w-[26px] rotate-[-11deg] opacity-45 md:right-[26%] md:w-[34px]"
-      />
 
       {/* foreground — 3 ou 4 elos gigantes atravessando a câmera, fora de foco.
           Não é para caber inteira: é para parecer perto demais.            */}
-      <Chain
-        variant="heavy"
-        data-bk-fg=""
-        className="absolute -top-[34%] -left-[26%] z-20 h-[190%] w-[124px] rotate-[17deg] opacity-55 blur-[3px]
-          md:left-[2%] md:w-[300px] md:opacity-90"
-      />
-      <Chain
-        data-bk-fg2=""
-        className="absolute -top-[12%] left-[34%] z-20 hidden h-[132%] w-[44px] rotate-[9deg] opacity-80 blur-[1px]
-          md:block md:left-[30%] md:w-[62px]"
-      />
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
         <div className="ml-auto w-full md:w-[62%]">

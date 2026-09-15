@@ -1,8 +1,6 @@
 'use client'
 
-import Atmosphere from '@/components/art/Atmosphere'
 import Fracture from '@/components/art/Fracture'
-import Gear from '@/components/art/Gear'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
 
@@ -88,17 +86,11 @@ export default function Reveal() {
   })
 
   return (
-    <section ref={root} className="relative h-[195vh] w-full md:h-[220vh]">
+    <section ref={root}
+      id="sec-reveal" className="relative h-[195vh] w-full md:h-[220vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
-        <Atmosphere tone="reveal" vignette={0.95} />
 
         {/* fundo: mecanismo submerso, fora de foco */}
-        <Gear
-          variant="ghost"
-          data-rv-bg=""
-          className="absolute -left-[34%] top-[8%] w-[104vw] max-w-[1000px] opacity-[0.22] blur-[5px]
-            md:-left-[16%] md:w-[50vw]"
-        />
 
         {/* a fratura silenciosa, se propagando à direita */}
         <Fracture

@@ -1,6 +1,5 @@
 'use client'
 
-import Atmosphere from '@/components/art/Atmosphere'
 import Cta from '@/components/ui/Cta'
 import Wordmark from '@/components/ui/Wordmark'
 import { MQ, useSection } from '@/components/motion/useSection'
@@ -20,10 +19,9 @@ export default function FinalCTA() {
   return (
     <section
       ref={root}
-      id="vaga"
+      id="sec-final"
       className="relative flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden px-5 py-[10vh] md:px-10"
     >
-      <Atmosphere tone="final" grid vignette={0.85} />
 
       <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
         <p data-fc-el="" data-anim="hidden" className="rx-eyebrow text-rx-cyan-500">

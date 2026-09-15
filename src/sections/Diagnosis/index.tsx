@@ -1,7 +1,5 @@
 'use client'
 
-import Atmosphere from '@/components/art/Atmosphere'
-import Gear from '@/components/art/Gear'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
 
@@ -39,49 +37,19 @@ export default function Diagnosis() {
   })
 
   return (
-    <section ref={root} className="relative h-[180vh] w-full md:h-[210vh]">
+    <section ref={root}
+      id="sec-diagnosis" className="relative h-[180vh] w-full md:h-[210vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
-        <Atmosphere tone="diagnosis" grid vignette={0.9} />
 
         {/* ---------- mecanismo em três profundidades declaradas ----------
             fundo: quase preto e fora de foco · meio: prata em foco ·
             frente: pequena dourada, grande na tela e levemente desfocada. */}
 
         {/* BACKGROUND — quase submersa */}
-        <Gear
-          variant="ghost"
-          spin={-40}
-          className="absolute -left-[32%] -top-[6%] w-[92vw] max-w-[900px] opacity-40 blur-[4px]
-            md:-left-[18%] md:w-[48vw]"
-        />
-        <Gear
-          variant="ghost"
-          spin={30}
-          className="absolute -right-[30%] top-[52%] w-[74vw] max-w-[700px] opacity-30 blur-[5px]
-            md:-right-[14%] md:w-[36vw]"
-        />
 
         {/* MIDGROUND — prata, nítida, é a peça que se lê */}
-        <Gear
-          variant="primary"
-          spin={180}
-          className="absolute -right-[24%] -top-[16%] w-[82vw] max-w-[740px] opacity-95
-            md:-right-[8%] md:-top-[20%] md:w-[38vw]"
-        />
-        <Gear
-          variant="secondary"
-          spin={-124}
-          className="absolute -right-[4%] top-[44%] w-[46vw] max-w-[400px] opacity-85
-            md:right-[24%] md:top-[56%] md:w-[21vw]"
-        />
 
         {/* FOREGROUND — dourada, colada na câmera, cortada pela borda */}
-        <Gear
-          variant="small"
-          spin={86}
-          className="absolute -left-[22%] -bottom-[16%] w-[68vw] max-w-[440px] opacity-95 blur-[2px]
-            md:-left-[7%] md:-bottom-[20%] md:w-[26vw]"
-        />
 
         <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
           <div className="relative w-full max-w-[46rem] md:ml-[6%]">

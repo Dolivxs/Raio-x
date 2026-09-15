@@ -1,8 +1,5 @@
 'use client'
 
-import Atmosphere from '@/components/art/Atmosphere'
-import Chain from '@/components/art/Chain'
-import Gear from '@/components/art/Gear'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
 import { STAGES } from './stages'
@@ -85,45 +82,12 @@ export default function Method() {
   })
 
   return (
-    <section ref={root} className="relative h-[290vh] w-full md:h-[380vh]">
+    <section ref={root}
+      id="sec-method" className="relative h-[290vh] w-full md:h-[380vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
-        <Atmosphere tone="method" grid vignette={1.0} />
 
         {/* ---------- mecanismo ---------- */}
         <div aria-hidden className="absolute inset-0 opacity-30 md:opacity-100">
-          <div
-            data-mt-slot=""
-            className="absolute -left-[14%] top-[26%] w-[62vw] max-w-[560px] md:left-[2%] md:top-[24%] md:w-[26vw]"
-          >
-            <Gear variant="primary" spin={200} className="w-full" />
-          </div>
-          <div
-            data-mt-slot=""
-            className="absolute left-[24%] top-[58%] w-[42vw] max-w-[380px] md:left-[20%] md:top-[56%] md:w-[18vw]"
-          >
-            <Gear variant="secondary" spin={-146} className="w-full" />
-          </div>
-          <div
-            data-mt-slot=""
-            className="absolute left-[52%] top-[30%] w-[26vw] max-w-[240px] blur-[1px] md:left-[34%] md:top-[32%] md:w-[11vw]"
-          >
-            <Gear variant="small" spin={94} className="w-full" />
-          </div>
-          <div
-            data-mt-slot=""
-            className="absolute -left-[26%] -top-[10%] w-[92vw] max-w-[900px] opacity-45 blur-[4px] md:-left-[12%] md:-top-[16%] md:w-[42vw]"
-          >
-            <Gear variant="ghost" spin={-58} className="w-full" />
-          </div>
-
-          <Chain
-            data-mt-chain=""
-            className="absolute -top-[12%] left-[6%] hidden h-[130%] w-[34px] rotate-[13deg] md:block md:left-[10%] md:w-[52px]"
-          />
-          <Chain
-            data-mt-chain=""
-            className="absolute -top-[16%] left-[34%] hidden h-[135%] w-[24px] rotate-[-9deg] md:block md:left-[30%] md:w-[36px]"
-          />
         </div>
 
         {/* ---------- etapas ---------- */}

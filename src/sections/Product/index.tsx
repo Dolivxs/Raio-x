@@ -1,8 +1,5 @@
 'use client'
 
-import Atmosphere from '@/components/art/Atmosphere'
-import Gear from '@/components/art/Gear'
-import Rope from '@/components/art/Rope'
 import Wordmark from '@/components/ui/Wordmark'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap, reveal } from '@/lib/motion'
@@ -48,18 +45,11 @@ export default function Product() {
   return (
     <section
       ref={root}
+      id="sec-product"
       className="relative w-full overflow-hidden py-[11vh] md:py-[14vh]"
     >
-      <Atmosphere tone="product" vignette={0.6} />
 
       {/* mecanismo enorme, no limite do visível — só profundidade, sem competir */}
-      <Gear
-        variant="ghost"
-        data-pd-bg=""
-        className="absolute left-1/2 top-[30%] w-[150vw] max-w-[1500px] -translate-x-1/2 opacity-[0.16] blur-[6px]
-          md:w-[86vw]"
-      />
-      <Rope className="absolute left-0 top-[6%] h-[18vh] w-[120%] opacity-45" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
         <div data-pd-mark="" data-anim="hidden" className="flex justify-center">

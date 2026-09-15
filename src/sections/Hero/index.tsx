@@ -1,8 +1,5 @@
 'use client'
 
-import Atmosphere from '@/components/art/Atmosphere'
-import Chain from '@/components/art/Chain'
-import Gear from '@/components/art/Gear'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { eventData } from '@/lib/event'
 import { gsap } from '@/lib/motion'
@@ -55,51 +52,17 @@ export default function Hero() {
   return (
     <section
       ref={root}
-      id="topo"
+      id="sec-hero"
       className="relative isolate flex h-[100svh] min-h-[600px] w-full flex-col overflow-hidden"
     >
-      <Atmosphere tone="hero" grid vignette={1.0} />
 
       {/* ---------- BACKGROUND: fundo do mecanismo, fora de foco ---------- */}
-      <Gear
-        variant="ghost"
-        data-anim="hidden"
-        data-hero-bg=""
-        className="absolute -right-[24%] -top-[28%] w-[92vw] max-w-[980px] opacity-0 blur-[3px]
-          md:-right-[11%] md:-top-[34%] md:w-[56vw]"
-        style={{ opacity: 0 }}
-      />
 
       {/* ---------- MIDGROUND: peça de aço cortada pela borda esquerda ---------- */}
-      <Gear
-        variant="secondary"
-        data-anim="hidden"
-        data-hero-mg=""
-        className="absolute -left-[24%] top-[58%] w-[52vw] max-w-[420px] opacity-0 blur-[1px]
-          md:-left-[13%] md:top-[40%] md:w-[26vw]"
-        style={{ opacity: 0 }}
-      />
 
       {/* ---------- peça entrando pela borda inferior direita ---------- */}
-      <Gear
-        variant="small"
-        data-anim="hidden"
-        data-hero-edge=""
-        data-hero-detail=""
-        className="absolute -bottom-[14%] right-[6%] w-[30vw] max-w-[190px] opacity-0
-          md:-bottom-[11%] md:right-[14%] md:w-[11vw]"
-        style={{ opacity: 0 }}
-      />
 
       {/* ---------- FOREGROUND: corrente colada na câmera, levemente desfocada ---------- */}
-      <Chain
-        variant="heavy"
-        data-anim="hidden"
-        data-hero-fg=""
-        className="absolute -top-[26%] -right-[6%] z-20 h-[164%] w-[78px] rotate-[9deg] opacity-0 blur-[2px]
-          md:-left-[15%] md:right-auto md:w-[230px]"
-        style={{ opacity: 0 }}
-      />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-between px-5 pb-16 pt-24 md:px-10 md:pb-20 md:pt-28">
         <div className="flex items-start justify-between gap-6">

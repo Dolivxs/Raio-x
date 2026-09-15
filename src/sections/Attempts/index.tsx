@@ -1,6 +1,5 @@
 'use client'
 
-import Atmosphere from '@/components/art/Atmosphere'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
 
@@ -71,9 +70,9 @@ export default function Attempts() {
   })
 
   return (
-    <section ref={root} className="relative h-[155vh] w-full md:h-[180vh]">
+    <section ref={root}
+      id="sec-attempts" className="relative h-[155vh] w-full md:h-[180vh]">
       <div className="sticky top-0 flex h-[100svh] w-full items-center overflow-hidden">
-        <Atmosphere tone="attempts" vignette={0.7} />
 
         <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
           <p

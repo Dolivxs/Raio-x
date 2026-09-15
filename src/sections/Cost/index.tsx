@@ -1,8 +1,5 @@
 'use client'
 
-import Atmosphere from '@/components/art/Atmosphere'
-import Gear from '@/components/art/Gear'
-import Rope from '@/components/art/Rope'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap, parallax, reveal } from '@/lib/motion'
 
@@ -44,15 +41,9 @@ export default function Cost() {
     // A seção do custo respira: muito espaço negativo, poucos elementos.
     <section
       ref={root}
+      id="sec-cost"
       className="relative w-full overflow-hidden py-[13vh] md:py-[16vh]"
     >
-      <Atmosphere tone="cost" vignette={1.2} />
-      <Gear
-        variant="ghost"
-        data-ct-gear=""
-        className="absolute -right-[30%] top-[18%] w-[90vw] max-w-[820px] opacity-25 md:-right-[14%] md:w-[36vw]"
-      />
-      <Rope className="absolute bottom-[10%] left-0 h-[16vh] w-[120%] opacity-25" tone="silver" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1100px] px-5 md:px-10">
         <div data-ct-head="" className="max-w-[18ch]">

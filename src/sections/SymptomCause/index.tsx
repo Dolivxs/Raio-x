@@ -1,6 +1,5 @@
 'use client'
 
-import Atmosphere from '@/components/art/Atmosphere'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap } from '@/lib/motion'
 
@@ -10,8 +9,6 @@ const LINHAS = [
   { sintoma: 'O resultado não chega?', reacao: 'Você trabalha mais.' },
 ]
 
-/** Razão entre o diâmetro do vidro e a largura total do SVG do aro. */
-const FRAME_RATIO = 1 / 0.5
 
 export default function SymptomCause() {
   const root = useSection<HTMLElement>(({ root, mm }) => {
@@ -22,8 +19,9 @@ export default function SymptomCause() {
     // exato da cena, não 100vw (a barra de rolagem desalinharia as duas camadas).
     const sync = () => {
       const r = sceneEl.getBoundingClientRect()
-      sceneEl.style.setProperty('--sw', `${r.width}px`)
-      sceneEl.style.setProperty('--sh', `${r.height}px`)
+      const rootEl = document.documentElement
+      rootEl.style.setProperty('--sw', `${r.width}px`)
+      rootEl.style.setProperty('--sh', `${r.height}px`)
     }
     sync()
     const ro = new ResizeObserver(sync)
@@ -31,12 +29,12 @@ export default function SymptomCause() {
 
     mm.add({ isDesktop: MQ.desktop, isMotion: MQ.motion }, (ctx) => {
       const { isDesktop, isMotion } = ctx.conditions as Record<string, boolean>
-      const r = isDesktop ? 250 : 106
-      sceneEl.style.setProperty('--lr', `${r}px`)
+      const r = isDesktop ? 200 : 96
+      document.documentElement.style.setProperty('--lr', `${r}px`)
 
       if (!isMotion) {
         // Sem movimento: a lente descansa sobre a primeira linha e o texto fica legível.
-        gsap.set(sceneEl, { '--lx': 0.38, '--ly': 0.52 })
+        gsap.set(document.documentElement, { '--lx': 0.38, '--ly': 0.52 })
         gsap.set('[data-sc-b], [data-sc-note]', { opacity: 1, y: 0 })
         return
       }
@@ -73,10 +71,10 @@ export default function SymptomCause() {
             { x: 0.25, y: 0.38 },
           ]
 
-      gsap.set(sceneEl, { '--lx': path[0].x, '--ly': path[0].y })
+      gsap.set(document.documentElement, { '--lx': path[0].x, '--ly': path[0].y })
       path.slice(1).forEach((p, i) => {
         tl.to(
-          sceneEl,
+          document.documentElement,
           { '--lx': p.x, '--ly': p.y, ease: 'power2.inOut', duration: 0.14 },
           0.1 + i * 0.21,
         )
@@ -89,21 +87,12 @@ export default function SymptomCause() {
   })
 
   return (
-    <section ref={root} className="relative h-[195vh] w-full md:h-[220vh]">
+    <section ref={root}
+      id="sec-symptom" className="relative h-[195vh] w-full md:h-[220vh]">
       <div
         data-sc-scene=""
         className="sticky top-0 h-[100svh] w-full overflow-hidden"
-        style={
-          {
-            '--lr': '190px',
-            '--lx': 0.3,
-            '--ly': 0.45,
-            '--sw': '100vw',
-            '--sh': '100svh',
-          } as React.CSSProperties
-        }
       >
-        <Atmosphere tone="symptom" grid vignette={1.45} />
 
         {/* ---------- camada SINTOMA (superfície) ---------- */}
         <div className="absolute inset-0">
@@ -137,19 +126,6 @@ export default function SymptomCause() {
           </div>
         </div>
 
-        {/* aro da lupa, acompanhando a mesma posição */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/raiox/lens/lens-frame.svg"
-          alt=""
-          aria-hidden
-          draggable={false}
-          className="pointer-events-none absolute left-0 top-0 select-none will-change-transform"
-          style={{
-            width: `calc(var(--lr) * 2 * ${FRAME_RATIO})`,
-            transform: `translate3d(calc(var(--sw) * var(--lx) - var(--lr) * ${FRAME_RATIO}), calc(var(--sh) * var(--ly) - var(--lr) * ${FRAME_RATIO}), 0)`,
-          }}
-        />
       </div>
     </section>
   )
@@ -172,9 +148,9 @@ function Layer({ variant }: { variant: 'sintoma' | 'causa' }) {
           {/* linha 2 — a única coisa que a lente troca. Dimensionada para caber
               inteira dentro da lente, senão a leitura vira palavra híbrida. */}
           {causa ? (
-            <span className="block text-[clamp(1.5rem,4.3vw,3rem)] rx-accent">NÃO A CAUSA.</span>
+            <span className="block text-[clamp(1.35rem,3.7vw,2.5rem)] rx-accent">NÃO A CAUSA.</span>
           ) : (
-            <span className="block text-[clamp(1.5rem,4.3vw,3rem)] text-white">O SINTOMA.</span>
+            <span className="block text-[clamp(1.35rem,3.7vw,2.5rem)] text-white">O SINTOMA.</span>
           )}
         </h2>
 
