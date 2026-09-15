@@ -108,7 +108,9 @@ export default function SymptomCause() {
             sem máscara animada, sem repaint de área grande.               */}
         <div
           aria-hidden
-          className="absolute left-0 top-0 overflow-hidden rounded-full will-change-transform"
+          // z-20: o circulo TEM de cobrir a camada base (Layer usa z-10). Sem
+          // isto as duas leituras se sobrepoem e a lente parece fora de registro.
+          className="absolute left-0 top-0 z-20 overflow-hidden rounded-full will-change-transform"
           style={{
             width: 'calc(var(--lr) * 2)',
             height: 'calc(var(--lr) * 2)',
