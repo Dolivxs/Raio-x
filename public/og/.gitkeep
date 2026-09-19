@@ -1,0 +1,7 @@
+Slot da imagem social (Open Graph / Twitter).
+
+Fornecer: public/og/raiox-og.jpg  —  1200x630, JPG ou PNG.
+
+Enquanto o arquivo nao existir, o metadata NAO aponta para imagem alguma
+(evita og:image quebrado). Para ativar, coloque o arquivo aqui e troque
+OG_IMAGE para '/og/raiox-og.jpg' em src/app/layout.tsx.

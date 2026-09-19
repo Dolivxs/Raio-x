@@ -80,11 +80,11 @@ export default function Overwork() {
         <OfficialAsset
           src={ASSET.hourglass}
           data-ow-glass=""
-          className="absolute -left-[46%] top-[46%] h-[54vh] w-auto opacity-[0.22]
-            md:inset-y-0 md:-left-[3%] md:top-auto md:my-auto md:h-[86vh] md:opacity-100 lg:left-[2%]"
+          className="absolute inset-y-0 -left-[20%] my-auto h-[62vh] w-auto opacity-[0.32]
+            md:top-auto md:-left-[3%] md:h-[86vh] md:opacity-100 lg:left-[2%]"
         />
 
-        <div className="relative z-10 ml-auto w-full max-w-[1600px] px-5 md:px-10">
+        <div className="relative -top-[8vh] z-10 ml-auto w-full max-w-[1600px] px-5 md:top-0 md:px-10">
           <div className="ml-auto w-full max-w-[38rem] md:w-[54%]">
             <div className="relative">
               <h2
