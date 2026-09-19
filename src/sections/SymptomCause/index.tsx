@@ -59,14 +59,26 @@ export default function SymptomCause() {
       // o texto fica alinhado à esquerda dentro dele — usar a caixa do elemento
       // jogaria o vidro algumas centenas de px para a direita das palavras.
       const scene = sceneEl.getBoundingClientRect()
-      const swapEl = sceneEl.querySelector<HTMLElement>('[data-sc-swap]')
-      let swap: DOMRect | undefined
-      if (swapEl) {
-        const range = document.createRange()
-        range.selectNodeContents(swapEl)
-        swap = range.getBoundingClientRect()
-        range.detach()
-      }
+      // As duas palavras trocadas têm larguras diferentes e ambas começam na
+      // mesma margem. O vidro precisa cobrir a MAIS LARGA — centrar na curta
+      // deixaria a longa pendurada para fora da lente.
+      // Posição vem da camada de base; a camada revelada vive dentro do
+      // círculo já transladado, então só a largura dela é comparável.
+      const range = document.createRange()
+      const swaps = [...sceneEl.querySelectorAll<HTMLElement>('[data-sc-swap]')].map((el) => {
+        range.selectNodeContents(el)
+        return range.getBoundingClientRect()
+      })
+      range.detach()
+      const base = swaps[0]
+      const swap = base
+        ? {
+            left: base.left,
+            top: base.top,
+            width: Math.max(...swaps.map((r) => r.width)),
+            height: base.height,
+          }
+        : undefined
       const read = swap
         ? {
             x: (swap.left + swap.width / 2 - scene.left) / scene.width,
@@ -215,21 +227,24 @@ function Layer({ variant }: { variant: 'sintoma' | 'causa' }) {
       <div className="w-full max-w-[52rem] md:ml-[5rem] lg:ml-[9rem]">
         <h2 className="rx-display">
           {/* linha 1 — igual nas duas camadas */}
-          <span className="block text-d4 text-rx-silver/55">VOCÊ ESTÁ TRATANDO</span>
+          <span className="block text-d4 text-rx-silver/55">O QUE VOCÊ ENXERGA</span>
           {/* linha 2 — a única coisa que a lente troca. Dimensionada para caber
               inteira dentro do vidro, senão a leitura vira palavra híbrida. */}
           {/* A linha que troca fica isolada: o respiro acima tira a linha 1 de
               dentro do vidro, para a lente revelar UMA mensagem por vez. */}
           {causa ? (
-            <span className="mt-[5.5rem] block text-[clamp(0.9rem,1.65vw,1.35rem)] rx-accent md:mt-[9rem]">
-              NÃO A CAUSA.
+            <span
+              data-sc-swap=""
+              className="mt-[5.5rem] block text-[clamp(0.9rem,1.65vw,1.35rem)] rx-accent md:mt-[9rem]"
+            >
+              GARGALO REAL
             </span>
           ) : (
             <span
               data-sc-swap=""
               className="mt-[5.5rem] block text-[clamp(0.9rem,1.65vw,1.35rem)] text-white md:mt-[9rem]"
             >
-              O SINTOMA.
+              SINTOMA
             </span>
           )}
         </h2>
@@ -253,8 +268,8 @@ function Layer({ variant }: { variant: 'sintoma' | 'causa' }) {
           data-sc-note={causa ? undefined : ''}
           className="rx-body mt-12 max-w-[46ch] text-rx-silver md:mt-16"
         >
-          E é por isso que, mesmo fazendo tudo,{' '}
-          <strong className="text-white">o problema sempre volta.</strong>
+          O que parece ser o problema nem sempre é o que{' '}
+          <strong className="text-white">realmente está segurando o resultado.</strong>
         </p>
       </div>
     </div>

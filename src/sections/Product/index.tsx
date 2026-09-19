@@ -3,11 +3,12 @@
 import Atmosphere from '@/components/art/Atmosphere'
 import Gear from '@/components/art/Gear'
 import Wordmark from '@/components/ui/Wordmark'
+import { eventData } from '@/lib/event'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap, reveal } from '@/lib/motion'
 
 const NEGATIVAS = ['Aqui não tem palpite.', 'Não tem teoria genérica.', 'Não tem fórmula mágica.']
-const POSITIVAS = ['EXAME', 'LAUDO', 'PRESCRIÇÃO']
+const POSITIVAS = ['DIAGNÓSTICO', 'DIREÇÃO', 'EXECUÇÃO']
 
 export default function Product() {
   const root = useSection<HTMLElement>(({ root, mm }) => {
@@ -63,13 +64,10 @@ export default function Product() {
           className="mt-14 flex flex-col items-center gap-1 text-center md:mt-20 md:gap-2"
         >
           <span data-anim="hidden" className="rx-display text-d4 text-white">
-            Um dia.
-          </span>
-          <span data-anim="hidden" className="rx-display text-d4 text-white">
-            Um diagnóstico.
+            UMA PARADA ESTRATÉGICA.
           </span>
           <span data-anim="hidden" className="rx-display text-d4 rx-accent">
-            Uma rota.
+            68 DIAS DE DIREÇÃO.
           </span>
         </p>
 
@@ -78,9 +76,7 @@ export default function Product() {
           data-anim="hidden"
           className="rx-body mx-auto mt-16 text-center text-rx-silver md:mt-20"
         >
-          Uma imersão presencial de um dia inteiro, feita sob medida para o empresário que está
-          cansado de auto-medicar o próprio negócio e quer, de uma vez por todas, enxergar o que
-          realmente trava o crescimento.
+          Um dia para examinar. Uma estratégia para executar.
         </p>
 
         {/* negativas — divisores finos, sem cards */}
@@ -100,7 +96,6 @@ export default function Product() {
         <p className="mt-20 flex flex-wrap items-baseline justify-center gap-x-4 gap-y-2 md:mt-24">
           {POSITIVAS.map((p) => (
             <span key={p} data-pd-pos="" data-anim="hidden" className="rx-display text-[clamp(1.5rem,5vw,3.4rem)]">
-              <span className="text-rx-silver/55">TEM </span>
               <span className="rx-accent">{p}.</span>
             </span>
           ))}
@@ -108,14 +103,9 @@ export default function Product() {
 
         <div data-pd-body="" className="mx-auto mt-20 max-w-3xl space-y-8 md:mt-24">
           <p data-anim="hidden" className="rx-body mx-auto text-rx-silver">
-            Você vai passar o dia abrindo seu negócio comigo. Olhando por dentro. Enxergando o que o
-            olho nu não mostra: as obstruções, as fraturas, os pontos cegos que estão sangrando o
-            resultado em silêncio.
-          </p>
-          <p data-anim="hidden" className="rx-body mx-auto text-white">
-            E vai sair de lá com algo que a maioria dos empresários nunca teve na vida:{' '}
-            <strong className="rx-accent">o diagnóstico real do próprio negócio</strong> e a
-            prescrição certa para destravar.
+            O RAIO X Empresarial é uma imersão presencial para examinar o negócio, identificar o
+            gargalo que mais interfere no resultado e definir a estratégia que vai orientar a reta
+            final de {eventData.year}.
           </p>
         </div>
       </div>

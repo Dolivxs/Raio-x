@@ -6,9 +6,9 @@ import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap, parallax, reveal } from '@/lib/motion'
 
 const CONTAS = [
-  'Quanto você perdeu nos últimos 12 meses tentando consertar o que não entendia?',
-  'Quanto vale identificar o que realmente está travando seu negócio e sair com um plano para mudar o jogo?',
-  'Quanto vale você deixar de carregar a empresa nas costas?',
+  'Quanto custa passar mais dois meses resolvendo sintomas?',
+  'Quanto vale saber exatamente onde concentrar tempo, equipe e recurso antes da reta final?',
+  'Quanto do resultado de 2026 ainda depende das decisões que você tomar agora?',
 ]
 
 export default function Cost() {
@@ -47,17 +47,17 @@ export default function Cost() {
       <div className="relative z-10 mx-auto w-full max-w-[1100px] px-5 md:px-10">
         <div data-ct-head="" className="max-w-[18ch]">
           <h2 data-anim="hidden" className="rx-display text-[clamp(1.3rem,3.2vw,2.3rem)] text-rx-silver/70">
-            Quanto te custa
+            68 dias passam de qualquer jeito.
           </h2>
           <h2 data-anim="hidden" className="rx-display text-d2 rx-accent">
-            CONTINUAR
+            A DIFERENÇA
             <br />
-            COMO ESTÁ?
+            É A DIREÇÃO.
           </h2>
         </div>
 
         <p data-ct-lead="" data-anim="hidden" className="rx-body mt-12 text-white md:mt-16">
-          Um mês a mais sem diagnóstico é um mês a mais sangrando resultado em silêncio.
+          O ano não vai esperar você descobrir sozinho.
         </p>
 
         <p className="rx-eyebrow mt-14 text-rx-silver/45 md:mt-20">FAZ A CONTA</p>
@@ -77,9 +77,9 @@ export default function Cost() {
           data-anim="hidden"
           className="mt-16 max-w-[34ch] text-[clamp(1.1rem,2.6vw,1.9rem)] font-medium leading-[1.35] text-white md:mt-24"
         >
-          Continuar como está custa muito mais.
+          Os 68 dias vão passar.
           <span className="mt-3 block text-rx-silver/60">
-            Só que parcelado em meses, em anos, em saúde, em noites mal dormidas.
+            A diferença é como você vai conduzi-los.
           </span>
         </p>
       </div>

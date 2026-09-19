@@ -5,16 +5,18 @@ import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap, reveal } from '@/lib/motion'
 
 const SIM = [
-  'Você é empresário e sente que o negócio está parado, mesmo trabalhando muito.',
-  'Você carrega a empresa nas costas e não consegue fazer o time andar no mesmo ritmo.',
-  'Você já investiu em cursos, mentorias, consultorias e ainda não viu o resultado prometido.',
-  'Você está pronto para parar de auto-medicar e operar com base em diagnóstico real.',
+  'Sua empresa está rodando, mas você sabe que ela pode entregar mais.',
+  'Você trabalha muito e ainda não enxerga com clareza o principal gargalo.',
+  'Existem várias frentes abertas e pouca definição de prioridade.',
+  'Você não quer chegar ao fim de 2026 percebendo que atacou o problema errado.',
+  'Você quer entrar nos últimos 68 dias com uma direção clara.',
 ]
 
 const NAO = [
-  'Você quer remédio sem exame.',
-  'Você espera motivação no lugar de método.',
-  'Você não está disposto a olhar com honestidade para dentro do próprio negócio.',
+  'Você procura apenas motivação ou conteúdo genérico.',
+  'Você não pretende rever prioridades.',
+  'Você não está disposto a olhar para os problemas reais do negócio.',
+  'Você não pretende executar aquilo que for diagnosticado.',
 ]
 
 export default function Audience() {

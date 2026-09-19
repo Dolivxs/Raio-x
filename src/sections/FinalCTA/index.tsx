@@ -4,7 +4,7 @@ import Atmosphere from '@/components/art/Atmosphere'
 import Cta from '@/components/ui/Cta'
 import Wordmark from '@/components/ui/Wordmark'
 import { MQ, useSection } from '@/components/motion/useSection'
-import { ctaIsPlaceholder, eventData } from '@/lib/event'
+import { ctaIsPlaceholder, eventData, eventFacts, price } from '@/lib/event'
 import { gsap, reveal } from '@/lib/motion'
 
 export default function FinalCTA() {
@@ -27,7 +27,7 @@ export default function FinalCTA() {
 
       <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
         <p data-fc-el="" data-anim="hidden" className="rx-eyebrow text-rx-cyan-500">
-          {eventData.city} · {eventData.date}
+          {eventFacts.join(' · ')}
         </p>
 
         <div data-fc-el="" data-anim="hidden" className="mt-10">
@@ -39,17 +39,32 @@ export default function FinalCTA() {
           data-anim="hidden"
           className="rx-display mt-14 text-[clamp(1.7rem,5.2vw,3.6rem)] text-white"
         >
-          Pronto para parar
+          Uma parada estratégica.
           <br />
-          <span className="rx-accent">de tentar no escuro?</span>
+          <span className="rx-accent">68 dias de direção.</span>
         </h2>
 
         <p data-fc-el="" data-anim="hidden" className="rx-body mt-8 text-rx-silver/75">
-          Turma única. Vagas limitadas. Quem entra, sai com diagnóstico, laudo e prescrição.
-          Quem fica de fora, continua tratando sintoma.
+          {eventData.date} pode ser o dia em que você para de reagir ao negócio e começa a
+          conduzir a reta final de {eventData.year} com clareza.
         </p>
 
         <div data-fc-el="" data-anim="hidden" className="mt-14">
+          <p className="rx-eyebrow text-rx-silver/40">
+            De <span className="line-through decoration-rx-silver/30">{price.original}</span> por
+          </p>
+          <p className="rx-display mt-2 text-[clamp(2.1rem,5vw,3.4rem)] leading-none rx-accent">
+            {price.subsidized}
+          </p>
+          <p className="mt-2 text-[clamp(0.9rem,1.5vw,1.05rem)] text-rx-silver/70">
+            ou {price.installmentLabel}
+          </p>
+          <p className="rx-eyebrow mx-auto mt-5 max-w-[34ch] leading-[1.7] text-rx-silver/45">
+            {eventData.scarcity}
+          </p>
+        </div>
+
+        <div data-fc-el="" data-anim="hidden" className="mt-12">
           <Cta size="xl" />
           {ctaIsPlaceholder && (
             <p className="rx-eyebrow mt-5 text-rx-silver/35">
@@ -64,8 +79,8 @@ export default function FinalCTA() {
           className="mt-16 max-w-[46ch] border-t border-white/[0.07] pt-8"
         >
           <p className="rx-body mx-auto text-rx-silver/70">
-            Você pode passar mais um ano tentando consertar o que não entende. Ou pode passar um
-            dia finalmente enxergando o que estava ali o tempo todo.
+            Você pode passar os próximos 68 dias reagindo ao que aparece. Ou pode passar um dia
+            examinando o negócio e conduzir a reta final com direção.
           </p>
           <p className="rx-display mt-8 text-[clamp(1.1rem,2.6vw,1.7rem)] rx-metal">
             A ESCOLHA É SUA.

@@ -150,7 +150,8 @@ export default function Method() {
           <div className="ml-auto w-full md:w-[46%]">
             <p className="rx-eyebrow text-rx-cyan-500/80">COMO FUNCIONA O RAIO X</p>
             <p className="mt-3 text-[clamp(0.9rem,1.5vw,1.05rem)] text-rx-silver/60">
-              Do sintoma ao tratamento, em <strong className="text-white">6 etapas clínicas.</strong>
+              Um dia para diagnosticar.{' '}
+              <strong className="text-white">68 dias para executar.</strong>
             </p>
 
             <div className="mt-8 flex gap-6 md:mt-12 md:gap-10">

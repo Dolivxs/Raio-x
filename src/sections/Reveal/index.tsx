@@ -10,28 +10,28 @@ import { gsap } from '@/lib/motion'
 const DESCOBERTAS = [
   {
     n: '01',
-    forte: 'Por que sua equipe não entrega',
-    resto: 'E por que a resposta quase nunca é a que o empresário imagina.',
+    forte: 'Diagnóstico empresarial completo',
+    resto: 'Clareza sobre o que realmente está limitando o resultado.',
   },
   {
     n: '02',
-    forte: 'Onde está a fratura silenciosa da sua gestão',
-    resto: 'O que está travando o crescimento e você ainda não tinha enxergado.',
+    forte: 'Mapa dos principais gargalos',
+    resto: 'Identificação dos pontos que mais consomem tempo, energia ou recurso sem avanço proporcional.',
   },
   {
     n: '03',
-    forte: 'Por que você trabalha tanto e o resultado não chega',
-    resto: 'E como inverter essa lógica de uma vez.',
+    forte: 'Definição de prioridades',
+    resto: 'O que precisa ser atacado agora — e o que pode esperar.',
   },
   {
     n: '04',
-    forte: 'O diagnóstico real do seu negócio',
-    resto: 'Feito por você, dentro da imersão, com a minha condução.',
+    forte: 'Plano estratégico de 68 dias',
+    resto: 'Direção clara para conduzir a empresa até o encerramento de 2026.',
   },
   {
     n: '05',
-    forte: 'Sua prescrição executável',
-    resto: "O protocolo certo para os seus próximos passos, não o que 'funciona em geral'.",
+    forte: 'Prescrição de execução',
+    resto: 'Ações objetivas para transformar o diagnóstico em movimento.',
   },
 ]
 
@@ -112,9 +112,10 @@ export default function Reveal() {
           {/* cabeçalho fixo da cena */}
           <div data-rv-head="" className="max-w-[24ch]">
             <p className="rx-eyebrow text-rx-silver/50">
-              O QUE O SEU <span className="font-bold text-white">RAIO X</span> VAI
+              VOCÊ NÃO SAI APENAS COM UMA ANÁLISE.{' '}
+              <span className="font-bold text-white">VOCÊ SAI</span>
             </p>
-            <h2 className="rx-display mt-3 text-d2 rx-accent">REVELAR</h2>
+            <h2 className="rx-display mt-3 text-d2 rx-accent">COM DIREÇÃO</h2>
           </div>
 
           <div className="mt-10 flex gap-6 md:mt-14 md:gap-12">

@@ -8,9 +8,8 @@ import { ASSET } from '@/lib/assets'
 import { gsap } from '@/lib/motion'
 
 const SINTOMAS = [
-  'A equipe não entrega como deveria.',
-  'As metas não batem como deveriam.',
-  'Você está em todas as frentes da operação, gestão, time, cliente — e mesmo assim sente que o negócio anda no mesmo lugar.',
+  'Para decidir como vai conduzir os próximos 68.',
+  'Uma parada estratégica antes da reta final de 2026.',
 ]
 
 export default function Overwork() {
@@ -95,16 +94,16 @@ export default function Overwork() {
               >
                 VOCÊ
                 <br />
-                TRABALHA
+                FAZ
                 <br />
-                DEMAIS.
+                MUITO.
               </h2>
 
               <div data-ow-b="" data-anim="hidden" className="absolute inset-0">
                 <h2 className="rx-display text-d3 text-white">
-                  E O RESULTADO
+                  AGORA É HORA
                   <br />
-                  NÃO CHEGA.
+                  DE PARAR UM DIA.
                 </h2>
                 <ul data-ow-list="" className="mt-8 space-y-5 md:mt-10">
                   {SINTOMAS.map((s) => (
@@ -119,9 +118,9 @@ export default function Overwork() {
               {/* reserva de altura: as duas mensagens se sobrepõem no mesmo espaço */}
               <div aria-hidden className="pointer-events-none invisible">
                 <h2 className="rx-display text-d3">
-                  E O RESULTADO
+                  AGORA É HORA
                   <br />
-                  NÃO CHEGA.
+                  DE PARAR UM DIA.
                 </h2>
                 <ul className="mt-8 space-y-5 md:mt-10">
                   {SINTOMAS.map((s) => (

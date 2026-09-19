@@ -8,12 +8,12 @@ import { gsap } from '@/lib/motion'
 /** Escalas e tons deliberadamente desiguais: algumas palavras estão perto da
  *  câmera, outras recuadas. É o que tira a lista do plano único.            */
 const TENTATIVAS = [
-  { label: 'CURSOS',           pos: 'md:ml-[2%]  md:mr-auto', size: 'text-[clamp(2.2rem,10.5vw,7.6rem)]', tone: 'text-rx-silver/90', depth: 1.0 },
-  { label: 'CONSULTORIA',      pos: 'md:ml-auto md:mr-[8%]',  size: 'text-[clamp(1.4rem,6.0vw,4.2rem)]',  tone: 'text-rx-silver/45', depth: 0.35 },
-  { label: 'LIVROS',           pos: 'md:ml-[22%] md:mr-auto', size: 'text-[clamp(2.4rem,11vw,8rem)]',     tone: 'text-rx-silver/95', depth: 1.15 },
-  { label: 'MENTORIAS',        pos: 'md:ml-auto md:mr-[18%]', size: 'text-[clamp(1.3rem,5.4vw,3.8rem)]',  tone: 'text-rx-silver/40', depth: 0.3 },
-  { label: 'TROCAR PESSOAS',   pos: 'md:ml-[6%]  md:mr-auto', size: 'text-[clamp(1.6rem,7vw,5rem)]',      tone: 'text-rx-silver/70', depth: 0.65 },
-  { label: 'MUDAR PROCESSOS',  pos: 'md:ml-auto md:mr-[2%]',  size: 'text-[clamp(1.9rem,8.4vw,6rem)]',    tone: 'text-rx-silver/85', depth: 0.9 },
+  { label: 'TRABALHAR MAIS',   pos: 'md:ml-[2%]  md:mr-auto', size: 'text-[clamp(1.9rem,8.4vw,6rem)]',   tone: 'text-rx-silver/90', depth: 1.0 },
+  { label: 'COBRAR MAIS',      pos: 'md:ml-auto md:mr-[8%]',  size: 'text-[clamp(1.4rem,6.0vw,4.2rem)]',  tone: 'text-rx-silver/45', depth: 0.35 },
+  { label: 'CONTRATAR MAIS',   pos: 'md:ml-[22%] md:mr-auto', size: 'text-[clamp(2rem,8.8vw,6.2rem)]',    tone: 'text-rx-silver/95', depth: 1.15 },
+  { label: 'ABRIR NOVAS FRENTES', pos: 'md:ml-auto md:mr-[18%]', size: 'text-[clamp(1.2rem,4.8vw,3.4rem)]', tone: 'text-rx-silver/40', depth: 0.3 },
+  { label: 'APAGAR INCÊNDIOS', pos: 'md:ml-[6%]  md:mr-auto', size: 'text-[clamp(1.6rem,7vw,5rem)]',      tone: 'text-rx-silver/70', depth: 0.65 },
+  { label: 'TENTAR DE NOVO',   pos: 'md:ml-auto md:mr-[2%]',  size: 'text-[clamp(1.8rem,7.8vw,5.6rem)]',  tone: 'text-rx-silver/85', depth: 0.9 },
 ]
 
 export default function Attempts() {
@@ -108,8 +108,10 @@ export default function Attempts() {
             data-anim="hidden"
             className="mt-12 max-w-[26ch] text-[clamp(1.1rem,2.6vw,2rem)] font-medium leading-[1.35] text-white md:mt-16"
           >
-            Você corre.
-            <span className="block text-rx-cyan-500">O negócio não acompanha.</span>
+            MAIS ESFORÇO NÃO É O QUE FALTA.
+            <span className="block text-rx-cyan-500">
+              Antes de acelerar, você precisa saber onde mexer.
+            </span>
           </p>
         </div>
       </div>

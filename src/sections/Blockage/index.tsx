@@ -5,7 +5,13 @@ import Chain from '@/components/art/Chain'
 import { MQ, useSection } from '@/components/motion/useSection'
 import { gsap, parallax, reveal } from '@/lib/motion'
 
-const FRENTES = ['OPERAÇÃO', 'GESTÃO', 'TIME', 'CLIENTE']
+const FRENTES = [
+  'TRABALHA MAIS',
+  'COBRA MAIS',
+  'ABRE NOVAS FRENTES',
+  'RESOLVE URGÊNCIAS',
+  'DECIDE SEM PRIORIDADE',
+]
 
 export default function Blockage() {
   const root = useSection<HTMLElement>(({ root, mm }) => {
@@ -57,12 +63,12 @@ export default function Blockage() {
         <div className="ml-auto w-full md:w-[62%]">
           <div data-bk-head="">
             <p data-anim="hidden" className="rx-eyebrow text-rx-cyan-500/80">
-              O QUE PRENDE
+              A RETA FINAL
             </p>
             <h2 data-anim="hidden" className="rx-display mt-6 text-d3 text-white">
-              Você está em
+              Você ainda tem 68 dias.
               <br />
-              <span className="rx-accent">todas as frentes.</span>
+              <span className="rx-accent">Mas mais do mesmo não cria direção.</span>
             </h2>
           </div>
 
@@ -90,8 +96,8 @@ export default function Blockage() {
             data-anim="hidden"
             className="rx-body mt-14 border-l-2 border-rx-cyan-500/60 pl-6 text-rx-silver md:mt-20"
           >
-            E mesmo assim sente que o negócio anda no mesmo lugar. Não é falta de esforço —
-            é o mecanismo travado por dentro.
+            O problema de entrar na reta final sem diagnóstico é simples: você pode gastar os
+            últimos meses do ano atacando o lugar errado.
           </p>
         </div>
       </div>

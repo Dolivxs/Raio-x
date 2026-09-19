@@ -3,7 +3,8 @@
 import Atmosphere from '@/components/art/Atmosphere'
 import Chain from '@/components/art/Chain'
 import { MQ, useSection } from '@/components/motion/useSection'
-import { eventData } from '@/lib/event'
+import Cta from '@/components/ui/Cta'
+import { eventData, eventFacts, price } from '@/lib/event'
 import { gsap } from '@/lib/motion'
 
 export default function Hero() {
@@ -69,7 +70,7 @@ export default function Hero() {
       <div className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-between px-5 pb-16 pt-24 md:px-10 md:pb-20 md:pt-28">
         <div className="flex items-start justify-between gap-6">
           <p data-anim="hidden" data-hero-detail="" className="rx-eyebrow text-rx-cyan-500/80 opacity-0">
-            {eventData.city} · {eventData.date}
+            {eventFacts.join(' · ')}
           </p>
           <p
             data-anim="hidden"
@@ -103,20 +104,43 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-          <p data-anim="hidden" data-hero-cue="" className="rx-eyebrow flex items-center gap-3 text-rx-silver/40 opacity-0">
-            <span className="h-8 w-px bg-rx-cyan-500/50 md:h-12" />
-            ROLE PARA COMEÇAR O EXAME
-          </p>
-          <h2
+          {/* Oferta na primeira dobra: quem chega pelo anúncio já sabe o que é
+              o evento — aqui ele confirma preço, condição e como garantir. */}
+          <div data-anim="hidden" data-hero-cue="" className="opacity-0">
+            <p className="rx-eyebrow text-rx-silver/40">
+              De <span className="line-through decoration-rx-silver/30">{price.original}</span> por
+            </p>
+            <p className="rx-display mt-2 text-[clamp(1.9rem,4.2vw,3rem)] leading-none rx-accent">
+              {price.subsidized}
+            </p>
+            <p className="mt-2 text-[clamp(0.85rem,1.4vw,1rem)] text-rx-silver/70">
+              ou {price.installmentLabel}
+            </p>
+            <p className="rx-eyebrow mt-4 max-w-[28ch] leading-[1.7] text-rx-silver/45">
+              {eventData.scarcity}
+            </p>
+            <div className="mt-6">
+              <Cta />
+            </div>
+          </div>
+
+          <div
             data-anim="hidden"
             data-hero-head=""
-            className="max-w-[34ch] text-[clamp(1.05rem,2.1vw,1.6rem)] font-medium leading-[1.42] text-white opacity-0 md:text-right"
+            className="max-w-[34ch] opacity-0 md:text-right"
           >
-            Sua empresa continua girando.
-            <span className="block text-rx-silver/70">
-              Mas será que ainda está indo na direção certa?
-            </span>
-          </h2>
+            <h2 className="text-[clamp(1.05rem,2.1vw,1.6rem)] font-medium leading-[1.42] text-white">
+              Prepare-se para os últimos {eventData.daysLeft} dias do ano —
+              <span className="block text-rx-silver/70">
+                e garanta o seu resultado de {eventData.year}.
+              </span>
+            </h2>
+            <p className="mt-4 text-[clamp(0.9rem,1.45vw,1.05rem)] leading-[1.55] text-rx-silver/60">
+              Uma imersão presencial de um dia para examinar a sua empresa, identificar o gargalo
+              que está segurando o resultado e sair com uma estratégia clara para a reta final do
+              ano.
+            </p>
+          </div>
         </div>
       </div>
     </section>

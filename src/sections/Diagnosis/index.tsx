@@ -68,38 +68,39 @@ export default function Diagnosis() {
           <div className="relative w-full max-w-[46rem] md:ml-[6%]">
             <h2 data-dg-a="" data-anim="hidden" className="absolute inset-0">
               <span className="rx-display block text-d3 text-rx-silver/80">
-                O problema não é
+                Antes de acelerar,
               </span>
               <span className="rx-display block text-d3 text-white">
-                falta de esforço.
+                você precisa saber onde mexer.
               </span>
             </h2>
 
             <div data-dg-b="" data-anim="hidden" className="absolute inset-0">
               <span className="rx-display block text-[clamp(1.4rem,3.6vw,2.6rem)] text-rx-silver/70">
-                É FALTA DE
+                NÃO É MAIS ESFORÇO.
               </span>
               <span className="rx-display block text-d1 leading-[0.86] text-rx-cyan-500">
-                DIAGNÓSTICO
+É DIREÇÃO.
               </span>
               <p
                 data-dg-note=""
                 data-anim="hidden"
                 className="rx-body mt-8 border-l-2 border-rx-cyan-500/50 pl-6 text-rx-silver md:mt-10"
               >
-                Você está tratando sintomas e nunca olhou o <strong className="text-white">RAIO X</strong>{' '}
-                do seu negócio.
+                Sem diagnóstico, esforço vira desgaste. O que define a reta final é saber{' '}
+                <strong className="text-white">onde concentrar</strong> o que você ainda tem.
               </p>
             </div>
 
             {/* reserva de altura — as duas mensagens dividem o mesmo espaço */}
             <div aria-hidden className="pointer-events-none invisible">
-              <span className="rx-display block text-[clamp(1.4rem,3.6vw,2.6rem)]">É FALTA DE</span>
+              <span className="rx-display block text-[clamp(1.4rem,3.6vw,2.6rem)]">NÃO É MAIS ESFORÇO.</span>
               <span className="rx-display block text-d1 leading-[0.86]">
-                DIAGNÓSTICO
+É DIREÇÃO.
               </span>
               <p className="rx-body mt-8 pl-6 md:mt-10">
-                Você está tratando sintomas e nunca olhou o RAIO X do seu negócio.
+                Sem diagnóstico, esforço vira desgaste. O que define a reta final é saber onde
+                concentrar o que você ainda tem.
               </p>
             </div>
           </div>

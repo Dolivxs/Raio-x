@@ -26,7 +26,9 @@ export default function Cta({ size = 'lg', className = '' }: Props) {
         focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4
         focus-visible:outline-rx-cyan-500 ${pad} ${className}`}
     >
-      <span className="relative z-10">{eventData.ctaLabel}</span>
+      <span className="relative z-10">
+        {size === 'sm' ? eventData.ctaLabelShort : eventData.ctaLabel}
+      </span>
       <svg
         viewBox="0 0 24 24"
         aria-hidden
