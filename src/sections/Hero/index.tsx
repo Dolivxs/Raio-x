@@ -53,7 +53,9 @@ export default function Hero() {
       <Atmosphere tone="hero" grid vignette={1.0} />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-between px-5 pb-16 pt-24 md:px-10 md:pb-20 md:pt-28">
-        <div className="flex items-start justify-between gap-6">
+        {/* Sobe um pouco por position:relative — assim o respiro até o lettering
+            aumenta sem que RAIO X, preço ou CTA saiam do lugar. */}
+        <div className="relative -top-2 flex items-start justify-between gap-6 md:-top-5">
           <p data-anim="hidden" data-hero-detail="" className="rx-eyebrow text-rx-cyan-500/80 opacity-0">
             {eventFacts.join(' · ')}
           </p>

@@ -18,11 +18,13 @@ export const eventData = {
   installments: 7,
   installmentValue: 107.26,
   scarcity: 'Vagas subsidiadas pelo Sebrae/TO são limitadas.',
-  whatsapp: '', // ex.: '5563999999999' — vazio mantém o CTA em modo placeholder
+  /** WhatsApp oficial (63 98442-2766) no formato internacional, sem sinais. */
+  whatsapp: '5563984422766',
   ctaLabel: 'QUERO GARANTIR MINHA VAGA',
   /** Versão curta para o botão fixo do header, onde a longa quebra em 2 linhas. */
   ctaLabelShort: 'GARANTIR VAGA',
-  ctaMessage: 'Quero garantir minha vaga no RAIO X Empresarial.',
+  ctaMessage:
+    'Olá! Quero garantir minha vaga no Raio X Empresarial do dia 24 de outubro em Palmas.',
 } as const
 
 const brl = (value: number, cents = true) =>
