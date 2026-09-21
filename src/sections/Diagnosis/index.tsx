@@ -52,15 +52,15 @@ export default function Diagnosis() {
         <Gear
           tone="teal"
           spin={-34}
-          className="absolute -left-[26%] -bottom-[24%] w-[62vw] max-w-[420px] opacity-[0.18]
-            md:-left-[10%] md:-bottom-[22%] md:w-[22vw]"
+          className="absolute left-[5%] top-[68.5%] w-[50vw] max-w-[420px] opacity-[0.26]
+            md:top-auto md:-left-[10%] md:-bottom-[22%] md:w-[22vw] md:opacity-[0.18]"
         />
 
         {/* PRINCIPAL — dourada, grande, cortada pela borda direita */}
         <Gear
           tone="gold"
           spin={118}
-          className="absolute right-[9%] top-[65%] w-[64vw] max-w-[820px] opacity-85
+          className="absolute right-[4%] top-[9%] w-[64vw] max-w-[820px] opacity-85
             md:-right-[25%] md:-top-[24%] md:w-[46vw]"
         />
 
