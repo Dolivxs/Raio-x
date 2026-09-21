@@ -125,9 +125,9 @@ export default function Hero() {
             className="max-w-[34ch] opacity-0 md:text-right"
           >
             <h2 className="text-[clamp(1.05rem,2.1vw,1.6rem)] font-medium leading-[1.42] text-white">
-              Prepare-se para os últimos {eventData.daysLeft} dias do ano —
+              Prepare-se para os últimos {eventData.daysLeft} dias do ano.
               <span className="block text-rx-silver/70">
-                e garanta o seu resultado de {eventData.year}.
+                E garanta o seu resultado de {eventData.year}.
               </span>
             </h2>
             <p className="mt-4 text-[clamp(0.9rem,1.45vw,1.05rem)] leading-[1.55] text-rx-silver/60">

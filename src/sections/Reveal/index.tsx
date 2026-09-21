@@ -21,7 +21,7 @@ const DESCOBERTAS = [
   {
     n: '03',
     forte: 'Definição de prioridades',
-    resto: 'O que precisa ser atacado agora — e o que pode esperar.',
+    resto: 'O que precisa ser atacado agora e o que pode esperar.',
   },
   {
     n: '04',
@@ -58,7 +58,9 @@ export default function Reveal() {
 
       // O cabeçalho abre a cena e cede lugar às descobertas.
       tl.fromTo('[data-rv-head]', { opacity: 0, y: 30 * k }, { opacity: 1, y: 0, duration: 0.07 }, 0)
-        .to('[data-rv-head]', { opacity: 0.22, duration: 0.06 }, 0.16)
+      // No desktop o cabeçalho recua para dar a cena às descobertas. No mobile
+      // ele é a única âncora da seção, então permanece presente até o fim.
+      if (isDesktop) tl.to('[data-rv-head]', { opacity: 0.22, duration: 0.06 }, 0.16)
 
       // A fratura se propaga ao longo de toda a revelação.
       tl.fromTo('[data-crack]', { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: 'none', stagger: 0.02, duration: 0.75 }, 0.14)

@@ -50,8 +50,8 @@ export default function Product() {
       <Gear
         tone="silver"
         data-pd-bg=""
-        className="absolute inset-x-0 top-[28%] mx-auto w-[140vw] max-w-[1400px] opacity-[0.05]
-          md:w-[78vw]"
+        className="absolute -left-[20%] top-[28%] w-[140vw] max-w-[1400px] opacity-[0.05]
+          md:inset-x-0 md:mx-auto md:w-[78vw]"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
