@@ -1,19 +1,24 @@
 import type { Metadata, Viewport } from 'next'
-import { Archivo, Inter } from 'next/font/google'
+import { Barlow_Condensed, Montserrat } from 'next/font/google'
 import CampaignCapture from '@/components/CampaignCapture'
 import '@/styles/globals.css'
 
-const archivo = Archivo({
+/**
+ * O LP-RX.pdf usa um grotesco geométrico de largura normal em quase toda a
+ * página e um condensado pesado apenas na headline do Hero. Montserrat e
+ * Barlow Condensed são os equivalentes livres mais próximos.
+ */
+const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['600', '700', '800'],
-  variable: '--font-archivo',
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-montserrat',
   display: 'swap',
 })
 
-const inter = Inter({
+const barlowCondensed = Barlow_Condensed({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-inter',
+  weight: ['600', '700', '800'],
+  variable: '--font-barlow-cond',
   display: 'swap',
 })
 
@@ -66,7 +71,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${archivo.variable} ${inter.variable}`}>
+    <html lang="pt-BR" className={`${montserrat.variable} ${barlowCondensed.variable}`}>
       <body>
         <CampaignCapture />
         {children}

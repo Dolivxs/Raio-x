@@ -1,25 +1,54 @@
 @import "tailwindcss";
 
+/* =========================================================================
+   RAIO X EMPRESARIAL — sistema visual reconstruído a partir de LP-RX.pdf.
+   Todas as cores abaixo foram amostradas diretamente do PDF renderizado.
+   Nenhum motion: a página é estática, em fluxo normal de documento.
+   ========================================================================= */
+
 @theme {
-  /* ---- RAIO X — paleta oficial (amostrada do PDF) ---- */
-  --color-rx-navy-950: #050d18;
-  --color-rx-navy-900: #0a1a2c;
-  --color-rx-navy-800: #102040;
-  --color-rx-navy-700: #103050;
-  --color-rx-blue-600: #10557f;
-  --color-rx-cyan-500: #10c0e0;
-  --color-rx-cyan-300: #7fdbff;
-  --color-rx-silver: #c6ced8;
-  --color-rx-gold-500: #c9a227;
+  /* --- azuis / fundos --- */
+  --color-nv-950: #050b14;
+  --color-nv-900: #0a1220;
+  --color-nv-850: #0e1623;
+  --color-nv-800: #0b1727;
+  --color-nv-750: #102336;
+  --color-nv-700: #16304a;
+  --color-bl-900: #001222;
+  --color-bl-850: #04121f;
+  --color-bl-800: #06365a;
+  --color-bl-700: #094975;
+  --color-bl-600: #0b6eaa;
 
-  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* --- acentos --- */
+  --color-cy-400: #5ce8ff;
+  --color-cy-500: #19dbfc;
+  --color-cy-600: #00a6e0;
+  --color-cy-700: #0b7fb4;
+  --color-ac-blue: #1f6fd0;
 
-  /* escala display — clamp, nunca tamanho fixo por breakpoint */
-  --text-d1: clamp(2.75rem, 11vw, 9rem);
-  --text-d2: clamp(2.25rem, 8vw, 6.5rem);
-  --text-d3: clamp(1.75rem, 5.5vw, 4rem);
-  --text-d4: clamp(1.375rem, 3.4vw, 2.25rem);
+  /* --- neutros --- */
+  --color-silver: #c9d2dd;
+  --color-muted: #9ba9ba;
+  --color-paper: #f5f5f4;
+  --color-footer: #d8d8d8;
+  --color-ink: #12263f;
+
+  /* --- dourado do botão e dos selos --- */
+  --color-gd-900: #7c5a3c;
+  --color-gd-700: #b07c43;
+  --color-gd-500: #c4a177;
+  --color-gd-300: #e7d2ae;
+
+  /* --- verde / vermelho da qualificação --- */
+  --color-ok-900: #044b1f;
+  --color-ok-600: #0a7a31;
+  --color-no-900: #872a42;
+  --color-no-600: #b32535;
+
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-cond: var(--font-barlow-cond), var(--font-montserrat), sans-serif;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -27,102 +56,215 @@
 }
 
 html {
-  background: var(--color-rx-navy-950);
-  /* Lenis controla o scroll; scroll-behavior nativo brigaria com ele */
+  background: var(--color-nv-950);
   scroll-behavior: auto;
 }
 
-body {
-  background: var(--color-rx-navy-950);
-  color: var(--color-rx-silver);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-/* Sem overflow horizontal em nenhum breakpoint */
 html,
 body {
   max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--color-nv-950);
+  color: var(--color-silver);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--color-rx-cyan-500);
-  color: var(--color-rx-navy-950);
+  background: var(--color-cy-500);
+  color: var(--color-nv-950);
 }
 
-/* ---------- utilitários de tipografia ---------- */
+/* Foco visível: única interação não trivial permitida. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-cy-500);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
 
-.rx-display {
-  font-family: var(--font-display);
+/* =========================================================================
+   TIPOGRAFIA
+   ========================================================================= */
+
+.t-hero {
+  font-family: var(--font-cond);
   font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.03em;
-  text-wrap: balance;
-}
-
-.rx-eyebrow {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(0.625rem, 1.1vw, 0.75rem);
-  letter-spacing: 0.34em;
+  line-height: 0.94;
+  letter-spacing: -0.005em;
   text-transform: uppercase;
 }
 
-.rx-body {
-  font-size: clamp(1rem, 1.35vw, 1.1875rem);
-  line-height: 1.62;
-  max-width: 60ch;
+/* Display centralizado do PDF: linha leve por cima, linha pesada por baixo. */
+.t-light {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
 }
 
-/* Título em duas camadas — assinatura da marca (branco + ciano) */
-.rx-accent {
-  color: var(--color-rx-cyan-500);
+.t-heavy {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
 }
 
-.rx-metal {
-  background: linear-gradient(168deg, #ffffff 6%, #c6ced8 34%, #7d8b9c 56%, #eef3f8 78%, #98a6b6 100%);
+.t-bold {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+}
+
+.t-body {
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.t-track {
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+}
+
+/* =========================================================================
+   FUNDOS — reproduzidos em CSS a partir das amostras do PDF
+   ========================================================================= */
+
+/* Navy quase preto com as hairlines diagonais discretas do PDF. */
+.bg-dark {
+  background-color: #0b1320;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 118px,
+      rgba(150, 190, 235, 0.035) 118px 119px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 118px,
+      rgba(150, 190, 235, 0.03) 118px 119px
+    ),
+    radial-gradient(90% 55% at 50% 0%, rgba(17, 58, 96, 0.5), transparent 72%);
+}
+
+/* Seção do "brilho": halo ciano no topo + retícula de pontos. */
+.bg-glow {
+  background-color: #001222;
+  background-image:
+    radial-gradient(circle, rgba(140, 200, 255, 0.075) 1px, transparent 1.7px),
+    radial-gradient(52% 34% at 50% 2%, rgba(11, 110, 170, 0.9), transparent 68%),
+    radial-gradient(110% 70% at 50% 0%, rgba(9, 73, 117, 0.6), transparent 72%),
+    repeating-radial-gradient(
+      circle at 50% 4%,
+      transparent 0 148px,
+      rgba(120, 190, 255, 0.05) 148px 149px
+    );
+  background-size: 15px 15px, auto, auto, auto;
+}
+
+/* Azul profundo das seções finais. */
+.bg-deep {
+  background-color: #061a2b;
+  background-image:
+    radial-gradient(circle, rgba(140, 200, 255, 0.06) 1px, transparent 1.7px),
+    radial-gradient(75% 50% at 50% 0%, rgba(9, 73, 117, 0.7), transparent 70%),
+    linear-gradient(180deg, #082233 0%, #061a2b 55%, #04121f 100%);
+  background-size: 15px 15px, auto, auto;
+}
+
+/* Branco com as arcadas concêntricas finas que o PDF usa nas bordas. */
+.bg-paper {
+  background-color: #ffffff;
+  background-image:
+    repeating-radial-gradient(
+      circle at -6% 42%,
+      transparent 0 52px,
+      rgba(30, 72, 122, 0.085) 52px 53px
+    ),
+    repeating-radial-gradient(
+      circle at 106% 58%,
+      transparent 0 52px,
+      rgba(30, 72, 122, 0.085) 52px 53px
+    );
+}
+
+/* =========================================================================
+   PEÇAS RECORRENTES
+   ========================================================================= */
+
+/* Botão dourado do PDF. Gradiente amostrado pixel a pixel do arquivo. */
+.btn-gold {
+  background-image: linear-gradient(
+    100deg,
+    #7c5a3c 0%,
+    #c4a177 16%,
+    #e7d2ae 38%,
+    #cfae85 56%,
+    #b07c43 78%,
+    #8a5c28 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 225, 0.55),
+    inset 0 -2px 4px rgba(60, 35, 10, 0.35),
+    0 10px 26px rgba(0, 0, 0, 0.45);
+}
+
+.btn-gold-knob {
+  background-image: linear-gradient(145deg, #e3b878 0%, #c2833a 48%, #9a6224 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 240, 215, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Cartão escuro padrão do PDF. */
+.card-dark {
+  background-image: linear-gradient(165deg, #131f33 0%, #0c1626 48%, #060d18 100%);
+  border: 1px solid rgba(146, 176, 214, 0.16);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.42);
+}
+
+/* Cartão azulado das seções profundas. */
+.card-deep {
+  background-image: linear-gradient(165deg, #0d2a44 0%, #0a2135 55%, #071827 100%);
+  border: 1px solid rgba(146, 196, 240, 0.18);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Faixa curta ciano que o PDF usa entre blocos. */
+.bar-cyan {
+  background-image: linear-gradient(90deg, #1f6fd0 0%, #19dbfc 100%);
+  box-shadow: 0 0 18px rgba(25, 219, 252, 0.55);
+}
+
+.rule-cyan {
+  background-image: linear-gradient(90deg, transparent, #19dbfc 22%, #19dbfc 78%, transparent);
+}
+
+.hairline {
+  background-image: linear-gradient(90deg, transparent, rgba(150, 185, 225, 0.32), transparent);
+}
+
+.text-metal {
+  background-image: linear-gradient(170deg, #ffffff 4%, #c9d2dd 32%, #7f8d9e 58%, #eef3f8 80%, #9aa8b8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* ---------- atmosfera ---------- */
-
-.rx-vignette::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(120% 85% at 50% 45%, transparent 38%, rgba(5, 13, 24, 0.72) 100%);
-}
-
-/* Névoa fria — gradiente estático, nunca filter animado */
-.rx-haze {
-  background:
-    radial-gradient(85% 60% at 18% 12%, rgba(16, 192, 224, 0.13), transparent 62%),
-    radial-gradient(70% 55% at 88% 78%, rgba(16, 85, 127, 0.2), transparent 60%);
-}
-
-.rx-hairline {
-  background: linear-gradient(90deg, transparent, rgba(198, 206, 216, 0.28), transparent);
-}
-
-/* ---------- estado inicial das animações ----------
-   Elementos entram por GSAP. Marcamos o estado inicial em CSS para
-   evitar flash de conteúdo posicionado errado no primeiro paint.     */
-[data-anim="hidden"] {
-  opacity: 0;
-}
-
-/* ---------- acessibilidade de movimento ---------- */
+/* =========================================================================
+   Sem motion. Nada aqui anima; a regra existe para blindar o resultado
+   contra qualquer animação herdada de user agent ou biblioteca futura.
+   ========================================================================= */
 @media (prefers-reduced-motion: reduce) {
-  [data-anim="hidden"] {
-    opacity: 1;
-  }
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

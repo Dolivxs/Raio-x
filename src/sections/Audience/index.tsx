@@ -1,10 +1,6 @@
-'use client'
+import { CyanBar } from '@/components/ui/Dividers'
 
-import Atmosphere from '@/components/art/Atmosphere'
-import { MQ, useSection } from '@/components/motion/useSection'
-import { gsap, reveal } from '@/lib/motion'
-
-const SIM = [
+const YES = [
   'Sua empresa está rodando, mas você sabe que ela pode entregar mais.',
   'Você trabalha muito e ainda não enxerga com clareza o principal gargalo.',
   'Existem várias frentes abertas e pouca definição de prioridade.',
@@ -12,96 +8,95 @@ const SIM = [
   'Você quer entrar nos últimos 68 dias com uma direção clara.',
 ]
 
-const NAO = [
+const NO = [
   'Você procura apenas motivação ou conteúdo genérico.',
-  'Você não pretende rever prioridades.',
-  'Você não está disposto a olhar para os problemas reais do negócio.',
-  'Você não pretende executar aquilo que for diagnosticado.',
+  'Não pretende rever prioridades.',
+  'Não está disposto a olhar para os problemas reais do negócio.',
+  'Não pretende executar aquilo que for diagnosticado.',
 ]
 
-export default function Audience() {
-  const root = useSection<HTMLElement>(({ root, mm }) => {
-    mm.add(MQ.reduced, () => gsap.set('[data-anim="hidden"]', { opacity: 1, y: 0, x: 0 }))
+function Mark({ kind }: { kind: 'ok' | 'no' }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="pointer-events-none absolute -bottom-4 -right-3 size-[120px] text-black/22"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="10.2" />
+      {kind === 'ok' ? (
+        <path d="M7 12.4l3.3 3.3L17 9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      ) : (
+        <path d="M8.4 8.4l7.2 7.2M15.6 8.4l-7.2 7.2" strokeWidth="2" strokeLinecap="round" />
+      )}
+    </svg>
+  )
+}
 
-    mm.add(MQ.motion, () => {
-      reveal('[data-au-head] > *', { trigger: root, y: 26, stagger: 0.12 })
-      gsap.fromTo(
-        '[data-au-sim]',
-        { opacity: 0, x: -26 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: '[data-au-cols]', start: 'top 74%', once: true },
-        },
-      )
-      gsap.fromTo(
-        '[data-au-nao]',
-        { opacity: 0, x: 26 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          delay: 0.25,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: '[data-au-cols]', start: 'top 74%', once: true },
-        },
-      )
-    })
-  })
+function Panel({
+  kind,
+  items,
+}: {
+  kind: 'ok' | 'no'
+  items: readonly string[]
+}) {
+  const skin =
+    kind === 'ok'
+      ? 'bg-gradient-to-br from-[#044b1f] via-[#066228] to-[#0a7a31]'
+      : 'bg-gradient-to-br from-[#b32535] via-[#9a2337] to-[#872a42]'
 
   return (
-    <section
-      ref={root}
-      className="relative w-full overflow-hidden py-[11vh] md:py-[14vh]"
-    >
-      <Atmosphere tone="audience" vignette={0.8} />
+    <div className={`relative flex-1 overflow-hidden rounded-[18px] px-8 py-9 ${skin}`}>
+      <ul>
+        {items.map((t, i) => (
+          <li
+            key={t}
+            className={`t-bold py-5 text-[15px] leading-[1.42] text-white ${
+              i > 0 ? 'border-t border-white/22' : 'pt-0'
+            }`}
+          >
+            {t}
+          </li>
+        ))}
+      </ul>
+      <Mark kind={kind} />
+    </div>
+  )
+}
 
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 md:px-10">
-        <div data-au-head="" className="max-w-[20ch]">
-          <h2 data-anim="hidden" className="rx-display text-d3 text-white">
-            Esse evento é
-          </h2>
-          <h2 data-anim="hidden" className="rx-display text-d2 rx-accent">
-            PARA VOCÊ?
-          </h2>
-        </div>
+export default function Audience() {
+  return (
+    <section className="relative bg-deep">
+      <div className="mx-auto max-w-[1140px] px-6 pb-24 pt-20 md:pb-28 md:pt-24">
+        <h2 className="t-heavy text-center text-[clamp(1.8rem,4.4vw,3.3rem)] uppercase">
+          <span className="text-white">Esse evento é </span>
+          <span className="text-cy-500">para você?</span>
+        </h2>
 
-        {/* divisão progressiva: entra pela esquerda, entra pela direita */}
-        <div data-au-cols="" className="mt-16 grid gap-14 md:mt-24 md:grid-cols-2 md:gap-20">
-          <div>
-            <p className="rx-eyebrow border-b border-rx-cyan-500/40 pb-4 text-rx-cyan-500">
-              É PARA VOCÊ SE
+        <div className="mt-12 grid grid-cols-1 items-stretch gap-8 md:grid-cols-2">
+          <div className="flex flex-col">
+            <p className="t-bold mb-5 text-center text-[clamp(1rem,2vw,1.35rem)] uppercase tracking-[0.04em]">
+              <span className="text-white">É para você se:</span>
             </p>
-            <ul className="mt-8 space-y-7">
-              {SIM.map((s) => (
-                <li key={s} data-au-sim="" data-anim="hidden" className="flex gap-4">
-                  <span className="mt-2 h-2 w-2 shrink-0 rotate-45 bg-rx-cyan-500" />
-                  <span className="rx-body text-rx-silver">{s}</span>
-                </li>
-              ))}
-            </ul>
+            <Panel kind="ok" items={YES} />
           </div>
-
-          <div className="md:border-l md:border-white/[0.07] md:pl-20">
-            <p className="rx-eyebrow border-b border-white/12 pb-4 text-rx-silver/50">
-              NÃO É PARA VOCÊ SE
+          <div className="flex flex-col">
+            <p className="t-bold mb-5 text-center text-[clamp(1rem,2vw,1.35rem)] uppercase tracking-[0.04em]">
+              <span className="text-white">Não é para você se:</span>
             </p>
-            <ul className="mt-8 space-y-7">
-              {NAO.map((s) => (
-                <li key={s} data-au-nao="" data-anim="hidden" className="flex gap-4">
-                  <span className="mt-2.5 h-px w-4 shrink-0 bg-rx-silver/40" />
-                  <span className="rx-body text-rx-silver/45 line-through decoration-rx-silver/25">
-                    {s}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <Panel kind="no" items={NO} />
           </div>
         </div>
+
+        <p className="t-heavy mx-auto mt-16 max-w-[820px] text-center text-[clamp(1.25rem,3vw,2.15rem)] uppercase leading-[1.16]">
+          <span className="text-white">Mais do que respostas,</span>
+          <br />
+          <span className="text-cy-500">você sai com direção.</span>
+        </p>
+
+        <CyanBar className="mt-14" />
       </div>
     </section>
   )

@@ -1,42 +1,50 @@
-import SmoothScroll from '@/components/motion/SmoothScroll'
-import DiagnosticProgress from '@/components/ui/DiagnosticProgress'
-import Header from '@/components/ui/Header'
-
 import Hero from '@/sections/Hero'
-import Overwork from '@/sections/Overwork'
-import Blockage from '@/sections/Blockage'
-import Attempts from '@/sections/Attempts'
-import Diagnosis from '@/sections/Diagnosis'
-import SymptomCause from '@/sections/SymptomCause'
+import Cycle from '@/sections/Cycle'
+import Effort from '@/sections/Effort'
+import Truth from '@/sections/Truth'
 import Product from '@/sections/Product'
-import Method from '@/sections/Method'
+import PhotoStrip from '@/sections/PhotoStrip'
+import HowDay from '@/sections/HowDay'
 import Reveal from '@/sections/Reveal'
+import Authority from '@/sections/Authority'
+import WhiteCards from '@/sections/WhiteCards'
 import Audience from '@/sections/Audience'
+import Takeaways from '@/sections/Takeaways'
+import Different from '@/sections/Different'
 import Cost from '@/sections/Cost'
-import FinalCTA from '@/sections/FinalCTA'
+import EventInfo from '@/sections/EventInfo'
+import Offer from '@/sections/Offer'
+import Investment from '@/sections/Investment'
+import Footer from '@/sections/Footer'
 
+/**
+ * Sequência comercial: promessa, problema, diagnóstico, produto, método,
+ * valor, entregáveis, qualificação, custo da inação, oferta, preço, CTA.
+ * O preço só existe em <Investment />, no fim da página.
+ */
 export default function Page() {
   return (
     <>
-      <SmoothScroll />
-      <Header />
-      <DiagnosticProgress />
-
       <main>
-        {/* travado → diagnosticado → destravado */}
         <Hero />
-        <Overwork />
-        <Blockage />
-        <Attempts />
-        <Diagnosis />
-        <SymptomCause />
+        <Cycle />
+        <Effort />
+        <Truth />
         <Product />
-        <Method />
+        <PhotoStrip />
+        <HowDay />
         <Reveal />
+        <Authority />
+        <WhiteCards />
         <Audience />
+        <Takeaways />
+        <Different />
         <Cost />
-        <FinalCTA />
+        <EventInfo />
+        <Offer />
+        <Investment />
       </main>
+      <Footer />
     </>
   )
 }

@@ -1,143 +1,95 @@
-'use client'
-
-import Atmosphere from '@/components/art/Atmosphere'
-import { MQ, useSection } from '@/components/motion/useSection'
 import Cta from '@/components/ui/Cta'
-import { eventData, eventFacts, price } from '@/lib/event'
-import { gsap } from '@/lib/motion'
+import { Chevron } from '@/components/ui/Dividers'
+import { eventData } from '@/lib/event'
 
-export default function Hero() {
-  const root = useSection<HTMLElement>(({ root, mm }) => {
-    // Entrada rápida: a página precisa ficar utilizável logo, sem splash.
-    mm.add(MQ.motion, () => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-      tl.set('[data-anim="hidden"]', { opacity: 0 })
-        .to('[data-hero-detail]', { opacity: 1, duration: 0.8, stagger: 0.1 }, 0.15)
-        .fromTo(
-          '[data-hero-mark]',
-          { opacity: 0, scale: 1.05, filter: 'blur(7px)' },
-          { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.1 },
-          0.3,
-        )
-        .fromTo('[data-hero-sub]', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7 }, 0.9)
-        .fromTo('[data-hero-line]', { scaleX: 0 }, { scaleX: 1, duration: 0.9 }, 0.95)
-        .fromTo('[data-hero-head]', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.9 }, 1.05)
-        .fromTo('[data-hero-cue]', { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.4)
-    })
-
-    mm.add(MQ.reduced, () => {
-      gsap.set('[data-anim="hidden"]', { opacity: 1, y: 0, scale: 1, filter: 'none' })
-      gsap.set('[data-hero-line]', { scaleX: 1 })
-    })
-
-    // Saída: cada plano sai numa velocidade — é o que faz o hero virar cena.
-    mm.add({ isDesktop: MQ.desktop, isMotion: MQ.motion }, (ctx) => {
-      if (!ctx.conditions?.isMotion) return
-      const k = ctx.conditions.isDesktop ? 1 : 0.55
-      const out = gsap.timeline({
-        scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: 1 },
-      })
-      out
-        .to('[data-hero-mark]', { yPercent: -32, scale: 0.92, opacity: 0.12, ease: 'none' }, 0)
-        .to('[data-hero-head]', { yPercent: -58, opacity: 0, ease: 'none' }, 0)
-        .to('[data-hero-cue]', { opacity: 0, ease: 'none', duration: 0.3 }, 0)
-    })
-  })
-
+function CalendarIcon() {
   return (
-    <section
-      ref={root}
-      id="topo"
-      className="relative isolate flex h-[100svh] min-h-[600px] w-full flex-col overflow-hidden"
-    >
-      <Atmosphere tone="hero" grid vignette={1.0} />
+    <svg viewBox="0 0 24 24" className="size-[18px] shrink-0" fill="none" stroke="#19dbfc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="16" rx="3" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+    </svg>
+  )
+}
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-between px-5 pb-16 pt-24 md:px-10 md:pb-20 md:pt-28">
-        {/* Sobe um pouco por position:relative — assim o respiro até o lettering
-            aumenta sem que RAIO X, preço ou CTA saiam do lugar. */}
-        <div className="relative -top-2 flex items-start justify-between gap-6 md:-top-5">
-          <p data-anim="hidden" data-hero-detail="" className="rx-eyebrow text-rx-cyan-500/80 opacity-0">
-            {eventFacts.join(' · ')}
-          </p>
-          <p
-            data-anim="hidden"
-            data-hero-detail=""
-            className="rx-eyebrow max-w-[10rem] text-right text-rx-silver/45 opacity-0 md:max-w-none"
-          >
-            com {eventData.speaker}
-          </p>
-        </div>
+function Pill({ children, icon = false }: { children: React.ReactNode; icon?: boolean }) {
+  return (
+    <span className="inline-flex items-center gap-2.5 rounded-xl border border-cy-500/25 bg-[#0b1a30]/85 px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-silver sm:text-[13px]">
+      {icon ? <CalendarIcon /> : null}
+      {children}
+    </span>
+  )
+}
 
-        <div className="-mt-4 md:-mt-10">
-          <h1 data-anim="hidden" data-hero-mark="" className="rx-display opacity-0">
-            <span className="block text-[clamp(3.6rem,17vw,15rem)] leading-[0.82]">
-              <span className="rx-metal">RAIO</span>
-              <span className="rx-accent">X</span>
-            </span>
-            <span
-              data-anim="hidden"
-              data-hero-sub=""
-              className="mt-3 block text-[clamp(0.7rem,2.6vw,2rem)] font-semibold text-rx-silver/70 opacity-0 md:mt-5"
-              style={{ letterSpacing: '0.46em' }}
-            >
-              EMPRESARIAL
-            </span>
-          </h1>
-          <span
-            data-hero-line=""
-            className="rx-hairline mt-8 block h-px w-full origin-left md:mt-10"
-            style={{ transform: 'scaleX(0)' }}
-          />
-        </div>
+function Copy() {
+  return (
+    <div className="max-w-[690px]">
+      <p className="t-hero text-[clamp(1.15rem,2.1vw,1.75rem)] tracking-[0.06em] text-white">
+        {eventData.brand} {eventData.brandSuffix}
+      </p>
 
-        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-          {/* Oferta na primeira dobra: quem chega pelo anúncio já sabe o que é
-              o evento — aqui ele confirma preço, condição e como garantir. */}
-          {/* A guia vertical fixa (DIAGNÓSTICO) termina em x=48. Enquanto o
-              container centrado ainda encosta na calha da página, o bloco
-              começaria em x=40 e cairia por cima dela — daí o recuo, que sai
-              de cena assim que a tela é larga o bastante para afastá-lo. */}
-          <div
-            data-anim="hidden"
-            data-hero-cue=""
-            className="opacity-0 lg:max-[1679px]:ml-10"
-          >
-            <p className="rx-eyebrow text-rx-silver/40">
-              De <span className="line-through decoration-rx-silver/30">{price.original}</span> por
-            </p>
-            <p className="rx-display mt-2 text-[clamp(1.9rem,4.2vw,3rem)] leading-none rx-accent">
-              {price.subsidized}
-            </p>
-            <p className="mt-2 text-[clamp(0.85rem,1.4vw,1rem)] text-rx-silver/70">
-              ou {price.installmentLabel}
-            </p>
-            <p className="rx-eyebrow mt-4 max-w-[28ch] leading-[1.7] text-rx-silver/45">
-              {eventData.scarcity}
-            </p>
-            <div className="mt-6">
-              <Cta />
-            </div>
-          </div>
+      <h1 className="t-hero mt-3 text-[clamp(1.75rem,3.1vw,2.8rem)]">
+        <span className="block text-white">Prepare-se para os últimos</span>
+        <span className="block text-cy-500">68 dias do ano.</span>
+        <span className="mt-[0.28em] block text-white">E garanta o seu resultado</span>
+        <span className="block text-cy-500">de 2026.</span>
+      </h1>
 
-          <div
-            data-anim="hidden"
-            data-hero-head=""
-            className="max-w-[34ch] opacity-0 md:text-right"
-          >
-            <h2 className="text-[clamp(1.05rem,2.1vw,1.6rem)] font-medium leading-[1.42] text-white">
-              Prepare-se para os últimos {eventData.daysLeft} dias do ano.
-              <span className="block text-rx-silver/70">
-                E garanta o seu resultado de {eventData.year}.
-              </span>
-            </h2>
-            <p className="mt-4 text-[clamp(0.9rem,1.45vw,1.05rem)] leading-[1.55] text-rx-silver/60">
-              Uma imersão presencial de um dia para examinar a sua empresa, identificar o gargalo
-              que está segurando o resultado e sair com uma estratégia clara para a reta final do
-              ano.
-            </p>
+      <p className="t-body mt-6 max-w-[520px] text-[15px] text-muted sm:text-base">
+        Uma imersão presencial de um dia para examinar a sua empresa, identificar o gargalo
+        que está segurando o resultado e sair com uma estratégia clara para a reta final do ano.
+      </p>
+
+      <div className="mt-7 flex flex-wrap gap-3">
+        <Pill icon>
+          {eventData.date} · {eventData.city}
+        </Pill>
+        <Pill>
+          {eventData.time} · {eventData.format}
+        </Pill>
+      </div>
+
+      <Cta className="mt-8" />
+    </div>
+  )
+}
+
+/**
+ * HERO — composição do LP-RX.pdf: fundo escuro com o X de luz ciano e a foto
+ * da Tudy à direita, coluna de texto à esquerda. A imagem de fundo é o
+ * próprio Hero do PDF, com a copy antiga removida. Zero preço aqui.
+ */
+export default function Hero() {
+  return (
+    <section className="relative z-10 bg-nv-950" aria-label="Raio X Empresarial">
+      {/* ---------- desktop: recorte integral do Hero do PDF ---------- */}
+      <div className="relative hidden aspect-[1713/928] w-full md:block">
+        <img
+          src="/rx/hero.jpg"
+          alt="Tudy Vieira, condutora do Raio X Empresarial"
+          className="absolute inset-0 size-full object-cover object-right"
+        />
+        <div className="absolute inset-0 flex items-center">
+          <div className="mx-auto w-full max-w-[1140px] px-6">
+            <Copy />
           </div>
         </div>
       </div>
+
+      {/* ---------- mobile: mesma identidade, foto acima da copy ---------- */}
+      <div className="md:hidden">
+        <div className="relative h-[46vh] min-h-[300px] w-full">
+          <img
+            src="/rx/hero-portrait.jpg"
+            alt="Tudy Vieira, condutora do Raio X Empresarial"
+            className="absolute inset-0 size-full object-cover object-[center_18%]"
+          />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-nv-950" />
+        </div>
+        <div className="bg-dark px-6 pb-14 pt-2">
+          <Copy />
+        </div>
+      </div>
+      <Chevron className="hidden md:block" />
     </section>
   )
 }
